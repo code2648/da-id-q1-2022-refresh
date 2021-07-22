@@ -1,10 +1,16 @@
-version: 2.0
-
-defaultLocaleCode: en-US
+defaultLocaleCode: en
 localeCodes:
-  - en-US
-
+- en
 params:
-  hello: world
-  foo:
-    - bar
+  author: Sameer Goel - goesamee@
+  description: Data Engineering Day Workshop
+  disableAssetsBusting: true
+  disableBreadcrumb: false
+  disableInlineCopyToClipBoard: false
+  disableLanguageSwitchingButton: false
+  disableNextPrev: false
+  disableSearch: false
+  disableShortcutsTitle: true
+  editURL: https://code.amazon.com/packages/Aws-workshop-template/blobs/master/--/workshop/content/
+  themeVariant: aws
+version: 2.0
