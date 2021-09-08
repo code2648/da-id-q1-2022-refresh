@@ -58,6 +58,7 @@ For job type, use dropdown list, select Spark Streaming;
 
 leave the rest configurations as-is and click Next.
  ![](/static/300/images-streamingETL/13.png)
+
 4.    For Data source, select the data source named tickettransactionstreamdata we just created. Click Next.
  ![](/static/300/images-streamingETL/14.png)
 5.    For Data target, select Create tables in your data target, for Data store, using dropdown list and select Amazon S3, for Format, using dropdown list and select Parquet.
@@ -186,11 +187,11 @@ https://console.aws.amazon.com/athena/home?region=us-east-1
 If it’s the first time you are using Athena in your AWS Account, click
 **Get Started**
 
-<img src="/static/300/images-streamingETL/image73.png" />
+![](/static/300/images-streamingETL/image73.png)
 
 Then click **set up a query result location in Amazon S3** at the top
 
-<img src="/static/300/images-streamingETL/image74.png" />
+![](/static/300/images-streamingETL/image74.png)
 
 choose the **dmslab-student-dmslabs3bucket** ( e.g: <dmslab-student-dmslabs3bucket-xg1hdyq60ibs>). then click on “Select” button.
 

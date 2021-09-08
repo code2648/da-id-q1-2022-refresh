@@ -15,7 +15,7 @@ weight: 450
 
 ### About the lab setup:
 
-<img src="/static/400/images/image92.png"">
+![](/static/400/images/image92.png)
 
 RDS Postgres Database is used as a source of ticket sales system for sporting events. It stores transaction information about ticket sales price to selected people and ticket ownership transfer with additional tables for event details. AWS Database Migration Service (DMS) is used for a full data load from the Amazon RDS source to Amazon S3 bucket.
 
@@ -23,7 +23,6 @@ Before the Glue lab starts, you might choose to skip the DMS data migration, ins
 
 In today's lab, you will copy the data from a centralized S3 bucket to your AWS account, crawl the dataset with AWS Glue crawler for metadata creation and transform the data with AWS Glue to Query data and create a View with Athena and Build a dashboard with Amazon QuickSight.
 
-::alert[Make sure you are in the us-east-1 (Virginia) region]{type="info"}
 
 ### Setup Cloud9 IDE for Data Copy
 
@@ -35,39 +34,32 @@ then work with the files and tools in that environment.
 
 #### Create an EC2 Environment with the Console
 
-1.  Sign in to the AWS Cloud9 console as follows:
-
-    -   If you're the only individual using your AWS account or you are
-        an IAM user in a single AWS account, go to
-        [https://console.aws.amazon.com/cloud9/](https://console.aws.amazon.com/cloud9/).
+1.  Sign in to the AWS Cloud9 console as follows:[https://console.aws.amazon.com/cloud9/](https://console.aws.amazon.com/cloud9/).
 
 2.  After you sign in to the AWS Cloud9 console, in the top navigation
-    bar, choose **US East (N. Virginia**) AWS Region to create the
-    environment in. For a list of available AWS Regions, see [AWS
+    bar, choose the AWS Region where your workshop is running. For a list of available AWS Regions, see [AWS
     Cloud9](https://docs.aws.amazon.com/general/latest/gr/rande.html#cloud9_region)
     in the *AWS General Reference*.
 
-<img src="/static/400/images/image93.png"">
+![](/static/400/images/image93.png)
 
-1.  If a welcome page is displayed, for **New AWS Cloud9 environment**,
-    choose **Create environment**. Otherwise, choose **Create
-    environment**.
+3.  If a welcome page is displayed, for **New AWS Cloud9 environment**, choose **Create environment**. 
 
-<img src="/static/400/images/image94.png" />
+![](/static/400/images/image94.png)
 
 Or:
 
-<img src="/static/400/images/image95.png"  />
+![](/static/400/images/image95.png)
 
-1.  On the **Name environment** page, for **Name**, type a name for your
+4.  On the **Name environment** page, for **Name**, type a name for your
     environment. For this tutorial, use **my-demo-environment**.
 
-2.  For **Description**, type something about your environment. For this
+5.  For **Description**, type something about your environment. For this
     tutorial, use This environment is for the AWS Cloud9 tutorial.
 
-3.  Choose **Next step**.
+6.  Choose **Next step**.
 
-4.  On the **Configure settings** page, for **Environment type**, choose
+7.  On the **Configure settings** page, for **Environment type**, choose
     **Create a new instance for environment (EC2)**.
 
 :::alert{type="warning"}
@@ -75,7 +67,7 @@ Choosing **Create a new instance for environment (EC2)** might result
 in possible charges to your AWS account for Amazon EC2.
 :::
 
-1.  For **Instance type**, leave the default choice. This choice has
+8.  For **Instance type**, leave the default choice. This choice has
     relatively low RAM and vCPUs, which is sufficient for this
     tutorial.
 
@@ -85,14 +77,11 @@ Choosing instance types with more RAM and vCPUs might result in
 additional charges to your AWS account for Amazon EC2.
 :::
 
-1.  For **Platform**, choose the type of Amazon EC2 instance that AWS
+9.  For **Platform**, choose the type of Amazon EC2 instance that AWS
     Cloud9 will create and then connect to this environment: **Amazon
     Linux** or **Ubuntu**.
 
-2.  For **Cost-saving setting**, choose the amount of time until AWS
-    Cloud9 shuts down the Amazon EC2 instance for the environment
-    after all web browser instances that are connected to the IDE for
-    the environment have been closed. Or **leave** the default choice.
+10.  For **Cost-saving setting**, choose the amount of time until AWS Cloud9 shuts down the Amazon EC2 instance for the environment after all web browser instances that are connected to the IDE for the environment have been closed. Or **leave** the default choice.
 
 
 :::alert{type="info"}
@@ -100,13 +89,11 @@ Choosing a longer time period might result in more charges to your AWS
 account.
 :::
 
-1.  Leave the default settings for **Network settings (advanced)**.
+11.  Leave the default settings for **Network settings (advanced)**.
 
-2.  Choose **Next step**.
+12.  Choose **Next step**.
 
-3.  On the **Review** page, choose **Create environment**. Wait while
-    AWS Cloud9 creates your environment. This can take several
-    minutes.
+13.  On the **Review** page, choose **Create environment**. Wait while AWS Cloud9 creates your environment. This can take several minutes.
 
 After AWS Cloud9 creates your environment, it displays the AWS Cloud9
 IDE for the environment.
@@ -122,22 +109,26 @@ in *Troubleshooting*.
 
 Open Cloud9 Console from AWS and you will see the terminal screen in the bottom:
 
-<img src="/static/400/images/image96.jpeg"  />
+![](/static/400/images/image96.jpeg)
 
 1.  Generate a key pair by issuing the command `ssh-keygen`
 
 2.  Press enter 3 times to take the default choices.
 
 3.  Upload the public key to your EC2 region:
-    `aws ec2 import-key-pair --key-name "lfworkshop" --public-key-material file://~/.ssh/id_rsa.pub`
+```
+aws ec2 import-key-pair --key-name "lfworkshop" --public-key-material file://~/.ssh/id_rsa.pub
+```
 
 4.  Issue the following command in the terminal, and replace the bucket
     name with your own one.
-    `aws s3 cp --recursive s3://aws-dataengineering-day.workshop.aws/data/ s3://<YourBucketName>/tickets/`
+```
+aws s3 cp --recursive s3://aws-dataengineering-day.workshop.aws/data/ s3://<YourBucketName>/tickets/
+```
 
 #### The data will be copied to your S3 Bucket and you will see the following:
 
-<img src="/static/400/images/image97.jpeg" />
+![](/static/400/images/image97.jpeg)
 
 ### Verify the Data
 
@@ -147,28 +138,25 @@ Open Cloud9 Console from AWS and you will see the terminal screen in the bottom:
 2.  Your S3 bucket name will look like below :
     BucketName/bucket_folder_name/schema_name/table_name/objects/
 
-3.  In our lab example this becomes:
-    [“/&lt;**BucketName**&gt;/tickets/dms_sample](https://s3.console.aws.amazon.com/s3/home?region=us-east-1)”
+3.  In our lab example this becomes: [/**BucketName**/tickets/dms_sample](https://s3.console.aws.amazon.com/s3/home?region=us-east-1)
     with a separate path for each table_name
 
-<img src="/static/400/images/image98.png" />
+![](/static/400/images/image98.png)
 
-1.  Download one of the files:
+4.  Download one of the files:
 
-    1.  Select the check box next to the object name and click Download
-        in the pop-up window.
+    - Select the **check box** next to the object name and click **Download** in the pop-up window.
 
-    2.  Click **Save File**.
+    - Click **Save File**.
 
-    3.  Open the file.
+    - Open the file.
 
-<img src="/static/400/images/image99.jpeg" />
+![](/static/400/images/image99.jpeg)
 
-### Note that column names are included in the file in the first row.
+5.  Note that column names are included in the file in the first row. Explore the objects in the S3 directory further.
 
-<img src="/static/400/images/image100.png" />
+![](/static/400/images/image100.png)
 
-Explore the objects in the S3 directory further.
 
 ### Next Steps
 

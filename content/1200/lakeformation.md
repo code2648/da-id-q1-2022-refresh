@@ -41,7 +41,7 @@ When you create a workflow, you must assign it an AWS Identity and
 Access Management (IAM) role that enables Lake Formation to set up the
 necessary resources on your behalf to ingest the data. In this lab,
 we’ve pre-created an IAM role for you, called <br />
-**&lt;random&gt;-LakeFormationWorkflowRole&lt;random&gt;**
+**random-LakeFormationWorkflowRolerandom**
 
 ## Create Glue JDBC connection for RDS 
 
@@ -50,7 +50,7 @@ we’ve pre-created an IAM role for you, called <br />
 
 2.  On the AWS Glue menu (left hand menu), select **Connections**.
 
-<img src="/static/1200/media\image8.jpg"">
+![](/static/1200/media/image8.jpg)
 
 3.  Click **Add Connection**.
 
@@ -60,11 +60,11 @@ we’ve pre-created an IAM role for you, called <br />
 
 6.  Optionally, enter the description. This should also be descriptive and easily recognizable. Click **Next**.
 
-<img src="/static/1200/media\image9.jpg"">
+![](/static/1200/media/image9.jpg)
 
-7. Input JDBC URL with the format of jdbc\:postgresql://<RDS_Server_Name>:5432/sportstickets
+7. Input JDBC URL with the format of **jdbc\:postgresql://<RDS_Server_Name>:5432/sportstickets**
     - a. If you are running the lab in an AWS hosted event, get the RDS_Server_Name from your instructor.
-    - b. If you are running the lab outside of AWS event, find the DMSInstanceEndpoint value on the Cloudformation stack dmslab-instructor Outputs tab.
+    - b. If you are running the lab outside of AWS event, find the **DMSInstanceEndpoint** value on the Cloudformation stack dmslab-instructor Outputs tab.
     
 8.  Enter **master** as username, **master123** as **Password**
 
@@ -74,113 +74,102 @@ we’ve pre-created an IAM role for you, called <br />
 
 11. Select the **security group** with **sgdefault** in the name.
 
-<img src="/static/1200/media\image11.jpg"">
+![](/static/1200/media/image11.jpg)
 
 12. Click **Next to** complete the **glue-rds-connection** setup. To
     test it, select the connection, and choose **Test connection**.
 
-<img src="/static/1200/media\image12.jpg"">
+![](/static/1200/media/image12.jpg)
 
-13. Choose the pre-created **IAM role** (looks like
-    **&lt;random&gt;-LakeFormationWorkflowRole&lt;random&gt;**),then
-    click **Test Connection.**
+13. Choose the pre-created **IAM role** (e.g., [random_string]-**LakeFormationWorkflowRole**-[random_string]),then click **Test Connection.**
 
-<img src="/static/1200/media\image13.jpg"">
+![](/static/1200/media/image13.jpg)
  
 
 ## Lake Formation – Add Administrator and start workflows using Blueprints. 
 
-Navigate to the AWS Lake Formation service:
+Navigate to the AWS Lake Formation service: [https://console.aws.amazon.com/lakeformation/](https://console.aws.amazon.com/lakeformation/home?region=us-east-1#databases)
 
-<u>https://console.aws.amazon.com/lakeformation/home?region=us-east-1#databases</u>
-
-<img src="/static/1200/media\image14.png"">
+![](/static/1200/media/image14.png)
 
 1. If you are logging into the lake formation console for the first time then you must add administrators first. In order to do that follow Steps 2 and 3. Else skip to Step 4.
 
 2. Click **Add administrators**
 
-<img src="/static/1200/media\image15.jpg"">
+![](/static/1200/media/image15.jpg)
 
-3.  Add **TeamRole** Role as the Lake Formation Administrator and Click
-    **Save**
+3.  Add **TeamRole** Role as the Lake Formation Administrator and Click **Save**
 
-<img src="/static/1200/media\image16.jpg"">
+![](/static/1200/media/image16.jpg)
 
 4.  Navigate to **Databases** on left pane. Select **ticketdata** and
     click on **Actions**, select **Grant** to grant permissions. If you
     can’t see any databases, make sure to complete **Part A of Lab 2.
     ETL with AWS Glue**
 
-<img src="/static/1200/media\image17.png"">
+![](/static/1200/media/image17.png)
 
 5.  Under “**IAM Users and Roles**”, select two roles: the Lake
     Formation role that was precreated:
-    **&lt;random&gt;-LakeFormationWorkflowRole-&lt;random&gt;** and
+    **random-LakeFormationWorkflowRole-random** and
     **TeamRole**. Grant **super** permissions for **Database permissions
     and Grantable permissions.**
 
-<img src="/static/1200/media\image18.jpg"">
+![](/static/1200/media/image18.jpg)
 
-6.  Select **Actions-&gt;Edit** on the **ticketdata** database
+6.  Select **Actions-Edit** on the **ticketdata** database
 
-<img src="/static/1200/media\image19.png"">
+![](/static/1200/media/image19.png)
 
 7.  Clear the checkbox **Use only IAM access control** and click
     **Save**. Changing the default security setting so that access to
     Data Catalog resources (databases and tables) is managed by Lake
     Formation permissions.
 
-<img src="/static/1200/media\image20_1.JPG"">
+![](/static/1200/media/image20_1.JPG)
 
 8.  On the left pane navigate to **Blueprints** and click **Use blueprints**.
-<img src="/static/1200/media\image21_1.JPG"">
+![](/static/1200/media/image21_1.JPG)
 
+    a.  For Blueprint Type, select Database snapshot.
 
-    - a.  For **Blueprint Type**, select **Database snapshot**
+    b.  Under Import Source:
+        -  For Database Connection, choose glue-rds-connection
+        -  For Source Data Path, enter sportstickets/dms_sample/player
 
-    - b.  Under **Import Source**
- 
-        - 1.  For **Database Connection** choose **glue-rds-connection**
+![](/static/1200/media/image22.png)
 
-        - 2.  For **Source Data Path** enter **sportstickets/dms_sample/player**
-<img src="/static/1200/media\image22.png"">
+    c.  Under Import Target:
+        -  For Target Database, choose ticketdata
+        -  For Target storage location browse and select the **xxx-dmslabS3bucket-xxx** created in the previous lab.
 
-    - c.  Under **Import Target**
+![](/static/1200/media/image23.jpg)
 
-        - 1.  For **Target Database**, choose **ticketdata**
+        -  Add /lakeformation at the end of the bucket url path, e.g.s3://mod-08b80667356c4f8a-dmslabs3bucketnh54wqg771lk/lakeformation
+        -  For Data Format, choose Parquet
 
-        - 2.  For **Target storage location** browse and select the **xxx-dmslabS3bucket-xxx** created in the previous lab.
-<img src="/static/1200/media\image23.jpg"">
+![](/static/1200/media/image24.jpg)
 
-        - 3.  Add **/lakeformation** at the end of the bucket url path, e.g. s3://mod-08b80667356c4f8a-dmslabs3bucketnh54wqg771lk**/lakeformation**
-            
-        - 4.  For **Data Format** choose **Parquet**
-<img src="/static/1200/media\image24.jpg"">
+    d.  For Import Frequency, Select Run On Demand
 
-    - d.  For **Import Frequency**, Select **Run On Demand**
+    e.  For Import Options:
+        -  Give a Workflow Name RDS-S3-Glue-Workflow
+        -  For the IAM 
+        -  For Table prefix, type lakeformation
 
-    - e.  For **Import Options**:
-
-        - 1.  Give a Workflow Name **RDS-S3-Glue-Workflow**
-
-        - 2.  For the **IAM role** contains **LakeFormationWorkflowRole**
-
-        - 3.  For **Table prefix** type **lakeformation**
-
-<img src="/static/1200/media\image25.jpg"">
+![](/static/1200/media/image25.jpg)
 
 9.  Leave other options as default, click **Create**, and wait for the
     console to report that the workflow was successfully created.
 
-10. Once the blueprint gets created, select it and click **Action -&gt;
+10. Once the blueprint gets created, select it and click **Action -
     Start.** There may be a delay of 5-10 seconds for the blueprint
     showing up. You may have to **hit** **refresh** button.
 
 11. Once the workflow starts executing, you will see the status changes
     from **running** -> **discovering** -> **Completed**
 
-<img src="/static/1200/media\image26.png"">
+![](/static/1200/media/image26.png)
 
 ## Explore the Underlying Components of a Blueprint 
 
@@ -194,7 +183,7 @@ finish its first execution. In the meantime, let us drill down to see what it cr
 2.  In the **Workflow section**, click on the **Workflow name**. This
     will direct you to the Workflow run page. Click on the **Run Id.**
 
-<img src="/static/1200/media\image27.png"">
+![](/static/1200/media/image27.png)
 
 3.  Here you can see the graphical representation of the Glue workflow
     built by Lake Formation blueprint. Highlighting and clicking on
@@ -208,42 +197,41 @@ finish its first execution. In the meantime, let us drill down to see what it cr
     Review each of these tabs for any of the python shell or pyspark
     jobs.
 
-<img src="/static/1200/media\image28.jpg"">
+![](/static/1200/media/image28.jpg)
 
 ## Explore workflow results in Athena 
 
 1.  Navigate to the **Lake Formation** Console. <u>https://console.aws.amazon.com/lakeformation/home?region=us-east-1#databases</u>
 
-2.  Navigate to **Databases** on the left panel and select
-    **ticketdata**
+2.  Navigate to **Databases** on the left panel and select **ticketdata**
 
 3.  Click on **View tables**
 
-<img src="/static/1200/media\image29.png"">
+![](/static/1200/media/image29.png)
 
 4. Select table **lakeformation_sportstickets_dms_sample_player**. As per our configuration above, Lake Formation tables were prefixed with **lakeformation**
 
-5. Click **Action** -&gt; **View Data**
+5. Click **Action -> View Data**
 
-<img src="/static/1200/media\image30.png"">
+![](/static/1200/media/image30.png)
 
 This will now take you to **Athena** console.
 
 If you see a “Get Started” page, it’s because it’s the first time we’re using Athena in this AWS Account. To proceed, click **Get Started**.
 
-<img src="/static/1200/media\image31.png"">
+![](/static/1200/media/image31.png)
 
 Then click **set up a query result location in Amazon S3** at the top
 
-<img src="/static/1200/media\image32.png"">
+![](/static/1200/media/image32.png)
 
 In the pop-up window in the **Query result location** field, enter your s3 bucket location followed by /, so that it looks like **s3://xxx-dmslabs3bucket-xxx/** and click **Save**
 
-<img src="/static/1200/media\image33.png"">
+![](/static/1200/media/image33.png)
 
 On Athena Console, you can run some queries using query editor:
 
-<img src="/static/1200/media\image34.png"">
+![](/static/1200/media/image34.png)
 
 To select some rows from the table, try running:
 
@@ -267,33 +255,33 @@ the Lake formation workflow above, to **datalake_user.**
 
 1.  Navigate to **IAM Console** and click on **Add** **User**.
 
-<img src="/static/1200/media\image35.png"">
+![](/static/1200/media/image35.png)
 
 2.  Create a user named **datalake_user** and give it a password:
     **Master123!**
 
-<img src="/static/1200/media\image36.jpg"">
+![](/static/1200/media/image36.jpg)
 
 3.  Next click on **Permissions**
 
 4.  Choose **Attach existing policies directly** and search for
     **AthenaFullAccess**
 
-<img src="/static/1200/media\image37.jpg"">
+![](/static/1200/media/image37.jpg)
 
 5.  Keep navigating to the next steps until reached the end. Review the
     details and click on “**Create User**”.
 
 6.  On the final screen, write down the sign-in link and hit **Close**
 
-<img src="/static/1200/media\image38.jpg"">
+![](/static/1200/media/image38.jpg)
 
 7. Click on the **datalake_user** user, select **add inline policy**, and switch to the **JSON** tab.
-<img src="/static/1200/media\image39.jpg"">
+![](/static/1200/media/image39.jpg)
 
-<img src="/static/1200/media\image40_1.JPG"">
+![](/static/1200/media/image40_1.JPG)
 
-Use the following json snippet replacing <mark>&lt;your_dmslabs3bucket_unique_name&gt;</mark> with the name of your dmslabs3bucket, e.g. **arn\:aws\:s3:::mod-08b80667356c4f8a-dmslabs3bucketnh54wqg771lk**
+Use the following json snippet replacing <mark>your_dmslabs3bucket_unique_name</mark> with the name of your dmslabs3bucket, e.g. **arn\:aws\:s3:::mod-08b80667356c4f8a-dmslabs3bucketnh54wqg771lk**
 
 ```
 {
@@ -320,7 +308,7 @@ Use the following json snippet replacing <mark>&lt;your_dmslabs3bucket_unique_na
 
 10. Choose **Grant**. 
 
-<img src="/static/1200/media\image41.png"">
+![](/static/1200/media/image41.png)
 
 11. Once the **Grant permissions** window opens up:
 
@@ -341,7 +329,7 @@ Use the following json snippet replacing <mark>&lt;your_dmslabs3bucket_unique_na
 
     7.  Click **Grant**
 
-<img src="/static/1200/media\image42.png"">
+![](/static/1200/media/image42.png)
 
 ## \[Optional\] Verify data permissions using Athena 
 
@@ -349,31 +337,31 @@ Using Athena, let us now explore the data set as the **datalake_user**.
 
 1.  Write down your **Account ID** and then sign out of your AWS Account. 
 
-<img src="/static/1200/media\image43_1.JPG"">
+![](/static/1200/media/image43_1.JPG)
 
 2.  On the same web page, sign back in as the IAM user
     **datalake_user**, using **Master123!** as password. Note: remove
     *hyphens* ‘-‘ from your Account ID
-<img src="/static/1200/media\image45_1.JPG"">
+![](/static/1200/media/image45_1.JPG)
 
     - a. Make sure to change the region to **us-east-1** (N. Virginia)
-<img src="/static/1200/media\image50.JPG"">
+![](/static/1200/media/image50.JPG)
 
     - b.  Navigate to **Athena console**
 
-<img src="/static/1200/media\image51.png"">
+![](/static/1200/media/image51.png)
 
 3.  If you see a “Get Started” page, it is the first time using Athena in this AWS Account. To proceed, click **Get Started**. 
 
-<img src="/static/1200/media\image52.png"">
+![](/static/1200/media/image52.png)
 
 Then click **set up a query result location in Amazon S3** at the top.
 
-<img src="/static/1200/media\image32.png"">
+![](/static/1200/media/image32.png)
 
-In the pop-up window, enter your s3 bucket location followed by ‘**/**’ in the **Query result location** box. It looks like **s3://xxx-dmslabs3bucket-xxx/** and click **Save**
+In the pop-up window, enter your s3 bucket location followed by "**/**" in the **Query result location** box. It looks like **s3://xxx-dmslabs3bucket-xxx/** and click **Save**
 
-<img src="/static/1200/media\image33.png"">
+![](/static/1200/media/image33.png)
 
 4.  Next, ensure database **ticketdata** is selected on right hand panel.
 
@@ -388,7 +376,7 @@ SELECT * FROM "ticketdata"."lakeformation_sportstickets_dms_sample_player" limit
     datalake_user cannot see **last_name**, **sports_team_id**,
     **full_name** columns in the table.
 
-<img src="/static/1200/media\image53.jpg"">
+![](/static/1200/media/image53.jpg)
 
 This illustrates that AWS Lake Formation can provide granular access at table and column level to IAM users.
 

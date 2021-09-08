@@ -8,14 +8,14 @@ weight: 440
 
 Labs in the Data Engineering workshop are to be completed in sequence. This lab is designed to automate the Data Lake hydration with AWS Database Migration Service (AWS DMS), so we can fast forward to the following Glue lab. 
 
-If you prefer to get hands-on with AWS DMS service, please skip this lab and proceed to [Prelab2](../400/430-pre-lab-2) and [DMS Main Lab](../400/440-main-lab). 
+If you prefer to get hands-on with AWS DMS service, please skip this lab and proceed to [Prelab2](../420-pre-lab-2) and [DMS Main Lab](../430-main-lab). 
 
 
 ### Pre-requisite
 
 ::alert[**Student PreLab Setup** is not required. Otherwise, duplicate S3 buckets and IAM roles will appear in your lab environment. If that happens, please use the resources with a name prefix "auto-dmslab-".]{type="warning"}
 
-- [**Instructor Prelab Setup**](../400/410-pre-lab-1) - is completed and the source RDS database is fully populated.
+- [**Instructor Prelab Setup**](../410-pre-lab-1) - is completed and the source RDS database is fully populated.
 - **RDS Database Server Name** - If you are in an AWS hosted event, please ask your instructor. Otherwise, check the **Outputs** tab on your [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) Console, note down the RDS Server value named `DMSInstanceEndpoint`.
 ![](/static/400/images/78.png)
 
@@ -32,7 +32,7 @@ Note whether these role are present or not. In this example screenshot the cloud
 
 | Launch Template                                                                                                                                                                                                                                                                                      | Region                     |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- |
-| <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=auto-dmslab&templateURL=https://s3.us-east-1.amazonaws.com/aws-dataengineering-day.workshop.aws/SkipDMSlab_student_CFN.json" target="_blank"><img src="/static/images/00-deploy-to-aws.png" ></a> | **N.Virginia** (us-east-1) |
+|[![Launch CloudFormation](/static/images/00-deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=auto-dmslab&templateURL=https://s3.us-east-1.amazonaws.com/aws-dataengineering-day.workshop.aws/SkipDMSlab_student_CFN.json)| **N.Virginia** (us-east-1) |
 
 
 It completes the following tasks on your behalf:

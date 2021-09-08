@@ -17,4 +17,4 @@ Below is a list of the steps for this lab:
 
 ::children
 
-Note: If you want to dive-deep and Glue DataBrew please refer [Bonus DataBrew lab](1300).
+Note: If you want to dive-deep and Glue DataBrew please refer [Bonus DataBrew lab](../1310-databrew-pre-lab).

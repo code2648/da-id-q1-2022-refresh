@@ -16,7 +16,7 @@ Analyzing web log traffic to gain insights that drive business decisions has his
 - Environment Cleanup
 - Appendix: Anomaly Detection Scripts
 
-In the [Kinesis prelab setup](310-pre-lab), you fulfilled the prerequisites for this lab. In this lab, you will create the following data pipeline.
+In the [Kinesis prelab setup](../310-pre-lab), you fulfilled the prerequisites for this lab. In this lab, you will create the following data pipeline.
 ![](/static/300/images/16.png)
 
 ### Set up an Analytics Pipeline Application

@@ -49,7 +49,7 @@ Instructor will provide source database details to participants during main lab 
 
 In this section, you are going to create a PostgreSQL RDS instance as data source for AWS Data Migration Service to consume by lab attendees for data migration to Amazon S3 data lake.
 
-::alert[Make sure you select the **us-east-1 (N. Virginia)** region]{type="info"}
+::alert[Make sure you select the correct AWS region that your workshop is running]{type="info"}
 
 1. Sign in to the Console where you will host the source database environment.
 
@@ -57,7 +57,7 @@ In this section, you are going to create a PostgreSQL RDS instance as data sourc
 
 | Launch Quick Create Template                                                                                                                                                                                                                                                                                           | Region                     |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- |
-| <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.us-east-1.amazonaws.com%2Faws-dataengineering-day.workshop.aws%2FDMSLab_instructor_CFN.json&stackName=dmslab-instructor" target="_blank"><img src="/static/images/00-deploy-to-aws.png" ></a> | **N.Virginia** (us-east-1) |
+| [![Launch CloudFormation](/static/images/00-deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.us-east-1.amazonaws.com%2Faws-dataengineering-day.workshop.aws%2FDMSLab_instructor_CFN.json&stackName=dmslab-instructor)| **N.Virginia** (us-east-1) |
 
 3. Check the box "I acknowledge that ...", then click on "Create Stack" to create the stack
 
@@ -98,11 +98,11 @@ Follow below steps to open security group for students to connect with source RD
 
 6.  Go to [VPC NAT gateways Console](https://console.aws.amazon.com/vpc/home?region=us-east-1#NatGateways:), and look for the IP address you need to add to the RDS security group.
 
-        - If you are running the [PreLab2](../400/430-pre-lab-2), note down the IP address tagged with "dmslab-student".
+    - If you are running the [PreLab2](../420-pre-lab-2), note down the IP address tagged with "dmslab-student".
 
     ![](/static/400/images/84.png)
 
-        - Or if you are running the [AutoComplete DMS Lab](../400/420-auto-complete-lab), copy the IP address tagged with "auto-dmslab".
+    - Or if you are running the [AutoComplete DMS Lab](../440-auto-complete-lab), copy the IP address tagged with "auto-dmslab".
 
     ![](/static/400/images/85.png)
 
@@ -121,23 +121,26 @@ https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/
 
 Database credentials: master/master123
 
-In SQL Workbench:
-Run following query to find out all Schema and table created.
-`SELECT * FROM pg_catalog.pg_tables;`
+In SQL Workbench: Run following query to find out all Schema and table created.
+```
+SELECT * FROM pg_catalog.pg_tables;
+```
 
 Ensure the following 2 functions exists. If anything is missing, check the solution at Troubleshoot section.
 
-`SELECT * FROM pg_stat_user_functions WHERE funcname in ('generateticketactivity','generatetransferactivity')`
+```
+SELECT * FROM pg_stat_user_functions WHERE funcname in ('generateticketactivity','generatetransferactivity')
+```
 
 Use following query to analyze a table
-`select * from schemaname.tablename;`
+```
+select * from schemaname.tablename;
+```
 
-For example:
-`select * from dms_sample.player;`
-
+For example: `select * from pg_catalog.pg_tables;`
 ![](/static/400/images/12.png)
-For example:
-`select * from dms_sample.player;`
+
+For example:`select * from dms_sample.player;`
 ![](/static/400/images/13.png)
 
 Following sections are optional, you only need to execute if you want to show change data capture replication with DMS.
@@ -150,27 +153,26 @@ Navigate to Lambda console and you will see a pre-built Lambda function named **
 
 ![](/static/400/images/14.png)
 
-1. Click on the function and scroll down. You will see the code for this function. Copy the below query and paste it in the placeholder (value) of this code line:
-   “ var query_cmd= ”<insert-SQL-query-here>” ”
+1. Click on the function and scroll down. You will see the code `index.js` for this function. Copy the below SQL query and paste it to the placeholder `<SQL_QUERY>` in this code line: "var query_cmd= <SQL_QUERY>"
 
-2. Run this query first: select dms_sample.generateticketactivity(10);
+2. Paste this query first: **select dms_sample.generateticketactivity(10);**
 
 ![](/static/400/images/15.png)
 
-This query will generate 10 ticket sales in batches of 1-6 tickets to randomly selected people for a random price (within a range.) A record of each transaction is recorded in the ticket_purchase_hist table.
+The query will generate 10 ticket sales in batches of 1-6 tickets to randomly selected people for a random price (within a range.) A record of each transaction is recorded in the `ticket_purchase_hist` table.
 
 3. Click on Save and then click on Test to run the function. You can create an empty event as shown here:
 
 ![](/static/400/images/16.png)
-You will see no error in lambda log
+You will see `Succeeded` in lambda status
 ![](/static/400/images/17.png)
 
-4. Once you've sold some tickets you can run the generateTransferActivity procedure. The following will transfer tickets from the owner to another person. The whole "batch" of tickets purchased is transferred 80% of the time and 20% of the time an individual ticket is transferred.
+4. Once you've sold some tickets you can run the `generateTransferActivity` procedure. Paste this query next in the lambda function: **select dms_sample.generatetransferactivity(10);**
 
-Run this query next in the lambda function:
-**select dms_sample.generatetransferactivity(10);**
+The following will transfer tickets from the owner to another person. The whole "batch" of tickets purchased is transferred 80% of the time and 20% of the time an individual ticket is transferred.
 
-Click on **Save** and then click on **Test** to run the function.
+
+5. Click on **Save** and then click on **Test** to run the function.
 
 ![](/static/400/images/18.png)
 
@@ -181,31 +183,32 @@ When replicating to multiple targets, the processing to fan out the updates shou
 
 ### Troubleshooting
 
-#### 1. Failed to run Lambda function ‘GenerateCDCData’.
+1. Failed to run Lambda function ‘GenerateCDCData’.
 
 ![](/static/400/images/71.png)
 
-**Cause**
+**Cause:**
 
 The source DB **sportstickets** setup is interrupted. Some database objects, such as the function **generateticketactivity()** will be missing.
 
-**Resolution**
+**Resolution:**
 
 Go to [EC2 console](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:), reboot the instance `DMSLabEC2`. It will reload the DB and create any objects that were missing. Due to the re-run issue, the table sporting_event_ticket will be doubled in size at each reboot. You can manually drop the table via the following query, before the reboot. Then wait for 20 minutes before checking the missing DB object again.
 
 `DROP TABLE dms_sample.sporting_event_ticket CASCADE`
 
-#### 2. RDS source database is out of storage space.
+
+2. RDS source database is out of storage space.
 
 Or you may see ‘No Space left on device’ error from DMSLabEC2 system log
 ![](/static/400/images/72.png)
 ![](/static/400/images/73.png)
 ![](/static/400/images/74.png)
 
-**Cause**
+**Cause:**
 Check the knowledge center [here](https://aws.amazon.com/premiumsupport/knowledge-center/diskfull-error-rds-postgresql/)
 
-**Resolution**
+**Resolution:**
 Increase the RDS instance disk size, as a quick fix.
 ![](/static/400/images/75.png)
 ![](/static/400/images/76.png)

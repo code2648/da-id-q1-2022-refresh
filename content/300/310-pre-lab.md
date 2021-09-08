@@ -37,7 +37,7 @@ After you deploy the CloudFormation template, sign into your account to view the
 
 | Launch Template                                                                                                                                                                                                                                                                                                         | Region                     |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- |
-| <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.us-east-1.amazonaws.com%2Faws-dataengineering-day.workshop.aws%2FKinesis_Pre_Lab_us-east-1.json&stackName=kinesis-prelab" target="_blank"><img src="/static/images/00-deploy-to-aws.png" ></a> | **N.Virginia** (us-east-1) |
+| [![Launch CloudFormation](/static/images/00-deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.us-east-1.amazonaws.com%2Faws-dataengineering-day.workshop.aws%2FKinesis_Pre_Lab_us-east-1.json&stackName=kinesis-prelab)| **N.Virginia** (us-east-1) |
 
 The button above will open a Quick create stack form:
 ![](/static/300/images/2.1.png)

@@ -26,166 +26,134 @@ Labs are also available at https://aws-dataengineering-day.workshop.aws/
 
 ### Get Started Using the Lab Environment
 
-Please skip this section if you are running the lab on your own AWS
-account.
+Please skip this section if you are running the lab on your own AWS account.
 
 Today, you are attending a formal event and you will have been sent your
 access details beforehand. If in the future you might want to perform
 these labs in your own AWS environment by yourself, you can follow
-instructions on GitHub -
-<https://github.com/aws-samples/data-engineering-for-aws-immersion-day>.
+instructions on GitHub - [https://github.com/aws-samples/data-engineering-for-aws-immersion-day](https://github.com/aws-samples/data-engineering-for-aws-immersion-day).
 
 A 12-character access code (or ‘hash’) is the access code that grants
 you permission to use a dedicated AWS account for the purposes of this
 workshop.
 
-1.  Go to <https://dashboard.eventengine.run/>, enter the access code
-    and click Proceed:
+1.  Go to [https://dashboard.eventengine.run/](https://dashboard.eventengine.run/), enter the access code and click Proceed:
 
-<img src="/static/600/media/image3.png" alt="EventEngine Login" />
+![](/static/600/media/image3.png)
 
-2.  On the Team Dashboard web page you will see a set of parameters that
-    you will need during the labs. Best to save them to a text file
-    locally, alternatively you can always go to this page to review
-    them. Replace the parameters with the corresponding values from here
-    where indicated in subsequent labs:
+2.  On the Team Dashboard web page you will see a set of parameters thatyou will need during the labs. Best to save them to a text filelocally, alternatively you can always go to this page to reviewthem. Replace the parameters with the corresponding values from herewhere indicated in subsequent labs:
 
 Because you’re at a formal event, some AWS resources have been
 pre-deployed for your convenience, for example:
 
 -   The source database connection in RDS DB Info module
 
-<img src="/static/600/media/image4.png" />
+![](/static/600/media/image4.png)
 
 -   S3 Bucket, IAM role for the Glue lab etc
 
-<img src="/static/600/media/image5.png"  />
+![](/static/600/media/image5.png)
 
-3.  On the Team Dashboard, please click AWS Console to log into the AWS
-    Management Console:
+3.  On the Team Dashboard, please click AWS Console to log into the AWSManagement Console:
 
-<img src="/static/600/media/image6.png"  />
+![](/static/600/media/image6.png)
 
-4.  Click Open Console. For the purposes of this workshop, you will not
-    need to use command line and API access credentials:
+4.  Click Open Console. For the purposes of this workshop, you will notneed to use command line and API access credentials:
 
-<img src="/static/600/media/image7.png"  alt="EventEngine Open Console" />
+![](/static/600/media/image7.png)
 
 Once you have completed these steps, you can continue with the rest of
 this lab.
 
-<span id="_PART-(A)" class="anchor"></span>
 
-#### PART A: Data Validation and ETL
+## PART A: Data Validation and ETL
 
 Create Glue Crawler for initial full load data
 ----------------------------------------------
 
-1.  Navigate to the [AWS Glue
-    service](https://console.aws.amazon.com/glue/home?region=us-east-1)
+1.  Navigate to the [AWS Glueservice](https://console.aws.amazon.com/glue/home?region=us-east-1)
 
-<img src="/static/600/media/image8.png" />
+![](/static/600/media/image8.png)
 
 2.  On the AWS Glue menu, select **Crawlers**.
 
-<img src="/static/600/media/image9.png"  />
+![](/static/600/media/image9.png)
 
 3.  Click **Add crawler**.
 
-4.  Enter **glue-lab-crawler** as the crawler name for initial data
-    load.
+4.  Enter **glue-lab-crawler** as the crawler name for initial dataload.
 
-5.  Optionally, enter the description. This should also be descriptive
-    and easily recognized and Click **Next**.
+5.  Optionally, enter the description. This should also be descriptiveand easily recognized and Click **Next**.
 
-<img src="/static/600/media/image10.png" />
+![](/static/600/media/image10.png)
 
 6.  Choose **Data stores**, **Crawl all folders** and **Click Next**
 
-<img src="/static/600/media/image11.png" />
+![](/static/600/media/image11.png)
 
 7.  On the **Add a data store** page, make the following selections:
-
-    1.  For Choose a data store, click the drop-down box and select
-        **S3**.
-
-    2.  For Crawl data in, select **Specified path in my account**.
-
-    3.  For Include path, browse to the target folder stored CSV files,
-        e.g., **s3://xxx-dmslabs3bucket-xxx/tickets**
+1.  For Choose a data store, click the drop-down box and select **S3**.
+2.  For Crawl data in, select **Specified path in my account**.
+3.  For Include path, browse to the target folder stored CSV files, e.g., **s3://xxx-dmslabs3bucket-xxx/tickets**
 
 8.  Click **Next**.
 
-<img src="/static/600/media/image12.png" />
+![](/static/600/media/image12.png)
 
-9.  On the **Add another data store page**, select **No**. and Click
-    **Next**.
+9.  On the **Add another data store page**, select **No**. and Click**Next**.
 
-<img src="/static/600/media/image13.png" />
+![](/static/600/media/image13.png)
 
 10.  On the **Choose an IAM role** page, make the following selections:
-
-    1.  Select **Choose an existing IAM role**.
-
-    2.  **For IAM role**, select
-        &lt;stackname&gt;-**GlueLabRole**-&lt;RandomString&gt;
-        pre-created for you. For example
-        “dmslab-student-GlueLabRole-ZOQDII7JTBUM”
+1.  Select **Choose an existing IAM role**.
+2.  **For IAM role**, select    &lt;stackname-**GlueLabRole**-&lt;RandomString    pre-created for you. For example    “dmslab-student-GlueLabRole-ZOQDII7JTBUM”
 
 11.  Click **Next**.
 
-<img src="/static/600/media/image14.png"  />
+![](/static/600/media/image14.png)
 
-12.  On the Create a schedule for this crawler page, for Frequency,
-    select **Run on demand** and Click **Next**.
+12.  On the Create a schedule for this crawler page, for Frequency,select **Run on demand** and Click **Next**.
 
-<img src="/static/600/media/image15.png"  />
+![](/static/600/media/image15.png)
 
-13.  On the Configure the crawler’s output page, click **Add database**
-    to create a new database for our Glue Catalogue.
+13.  On the Configure the crawler’s output page, click **Add database**to create a new database for our Glue Catalogue.
 
-<img src="/static/600/media/image16.png"  />
+![](/static/600/media/image16.png)
 
 14.  Enter **ticketdata** as your database name and click **create**
 
-<img src="/static/600/media/image17.png" />
+![](/static/600/media/image17.png)
 
 15.  For **Prefix added to tables (optional)**, leave the field empty.
 
-16.  For **Configuration options (optional)**, select **Add new columns
-    only** and keep the remaining default configuration options and
-    Click **Next**.
+16.  For **Configuration options (optional)**, select **Add new columnsonly** and keep the remaining default configuration options andClick **Next**.
 
-<img src="/static/600/media/image18.png" />
+![](/static/600/media/image18.png)
 
-17.  Review the summary page noting the Include path and Database output
-    and Click **Finish**. The crawler is now ready to run.
+17.  Review the summary page noting the Include path and Database outputand Click **Finish**. The crawler is now ready to run.
 
-<img src="/static/600/media/image19.png" />
+![](/static/600/media/image19.png)
 
 18.  Tick the crawler name, click **Run crawler** button.
 
-<img src="/static/600/media/image20.png"  />
+![](/static/600/media/image20.png)
 
 Crawler will change status from starting to stopping, wait until crawler
 comes back to ready state (the process will take a few minutes), you can
 see that it has created 15 tables.
 
-<img src="/static/600/media/image21.png"  />
+![](/static/600/media/image21.png)
 
-19.  In the AWS Glue navigation pane, click **Databases** &gt;
-    **Tables**. You can also click the **ticketdata** database to browse
-    the tables.
+19.  In the AWS Glue navigation pane, click **Databases** **Tables**. You can also click the **ticketdata** database to browsethe tables.
 
-<img src="/static/600/media/image22.png"  />
+![](/static/600/media/image22.png)
 
 Data Validation Exercise 
 ------------------------
 
-1.  Within the Tables section of your **ticketdata** database, click the
-    person table.
+1.  Within the Tables section of your **ticketdata** database, click theperson table.
 
-<img src="/static/600/media/image23.png"  />
+![](/static/600/media/image23.png)
 
 You may have noticed that some tables (such as person) have column
 headers such as col0,col1,col2,col3. In absence of headers or when the
@@ -197,16 +165,15 @@ this issue.
 
 2.  Click **Edit Schema** on the top right side.
 
-<img src="/static/600/media/image24.png" />
+![](/static/600/media/image24.png)
 
-3.  In the Edit Schema section, double-click **col0** (column name) to
-    open edit mode. Type “id” as the column name.
+3.  In the Edit Schema section, double-click **col0** (column name) toopen edit mode. Type “id” as the column name.
 
 Repeat the preceding step to change the remaining column names to match
 those shown in the following figure: full_name, last_name and
 first_name
 
-<img src="/static/600/media/19.png" />
+![](/static/600/media/19.png)
 
 4.  Click **Save**.
 
@@ -224,81 +191,57 @@ in terms of how to manually create a folder in S3 bucket.
 
 1.  In the left navigation pane, under ETL, click **AWS Glue Studio**.
 
-<img src="/static/600/media/image26.png" />
+![](/static/600/media/image26.png)
 
 2.  Choose “**Create and Manage Jobs**”
 
-<img src="/static/600/media/image27.png" />
+![](/static/600/media/image27.png)
 
-3.  Leave the “Source and target added to the graph” option selected,
-    and press “**Create**”
+3.  Leave the “Source and target added to the graph” option selected,and press “**Create**”
 
-<img src="/static/600/media/image28.png" />
+![](/static/600/media/image28.png)
 
 4.  Select the “Data source - S3 bucket” at the top of the graph.
 
-5.  In the panel on the right under “Data source properties - S3”,
-    choose the “**ticketdata**” database from the drop down.
+5.  In the panel on the right under “Data source properties - S3”,choose the “**ticketdata**” database from the drop down.
 
 6.  For Table, select the **sport_team** table.
 
-<img src="/static/600/media/image29.png" />
+![](/static/600/media/image29.png)
 
-7.  Select the “ApplyMapping” node. In the Transform panel on the right
-    and change the data type of “id” column to double in the dropdown.
+7.  Select the “ApplyMapping” node. In the Transform panel on the rightand change the data type of “id” column to double in the dropdown.
 
-<img src="/static/600/media/image30.png" />
+![](/static/600/media/image30.png)
 
-8.  Select the “Data target - S3 bucket” node at the bottom of the
-    graph, and change the Format to **Parquet** in the dropdown.
+8.  Select the “Data target - S3 bucket” node at the bottom of thegraph, and change the Format to **Parquet** in the dropdown.
 
-9.  Under “S3 Target Location”, select “**Browse S3**” browse to the
-    “mod-xxx-dmslabs3bucket-xxx” bucket, select “**tickets**” item and
-    press
-    “**Choose**”.<img src="/static/600/media/image31.png" />
+9.  Under “S3 Target Location”, select “**Browse S3**” browse to the“mod-xxx-dmslabs3bucket-xxx” bucket, select “**tickets**” item andpress“**Choose**”.![](/static/600/media/image31.png)
 
-10.  In the textbox, append **dms_parquet/sport_team/** to the S3 url.
-    The path should look similar to
-    s3://mod-xxx-dmslabs3bucket-xxx/tickets**/dms_parquet/sport_team/** -
-    don’t forget the “/” at the end. The job will automatically create
-    the folder.
+10.  In the textbox, append **dms_parquet/sport_team/** to the S3 url.The path should look similar tos3://mod-xxx-dmslabs3bucket-xxx/tickets**/dms_parquet/sport_team/** -don’t forget the “/” at the end. The job will automatically createthe folder.
 
-<img src="/static/600/media/image32.png" />
+![](/static/600/media/image32.png)
 
-11.  Finally, select the **Job details** tab at the top. Enter
-    **Glue-Lab-SportTeamParquet** under Name.
+11.  Finally, select the **Job details** tab at the top. Enter**Glue-Lab-SportTeamParquet** under Name.
 
-12.  For “**IAM Role**”, select the role named similar to
-    mod-xxx**-GlueLabRole-**xxx.
+12.  For “**IAM Role**”, select the role named similar tomod-xxx**-GlueLabRole-**xxx.
 
-13.  Scroll down the page and under “**Job bookmark**”, select
-    “**Disable**” in the drop down. You can try out the bookmark
-    functionality later in this lab.
+13.  Scroll down the page and under “**Job bookmark**”, select“**Disable**” in the drop down. You can try out the bookmarkfunctionality later in this lab.
 
-<img src="/static/600/media/image33.png" />
+![](/static/600/media/image33.png)
 
-14.  Press the “**Save**” button in the top right-hand corner to create
-    the job.
+14.  Press the “**Save**” button in the top right-hand corner to createthe job.
 
-15.  Once you see the “**Successfully created job**” message in the
-    banner, click the “**Run**” button to start the job.
+15.  Once you see the “**Successfully created job**” message in thebanner, click the “**Run**” button to start the job.
 
-16.  Select “**Jobs**” from the navigation panel on the left-hand side to
-    see a list of your jobs.
+16.  Select “**Jobs**” from the navigation panel on the left-hand side tosee a list of your jobs.
 
-17.  Select “**Monitoring**” from the navigation panel on the left-hand
-    side to view your running jobs, success/failure rates and various
-    other statistics.
+17.  Select “**Monitoring**” from the navigation panel on the left-handside to view your running jobs, success/failure rates and variousother statistics.
 
-<img src="/static/600/media/image34.png" />
+![](/static/600/media/image34.png)
 
-18.  Scroll down to the “**Job runs**” list to verify that the ETL job
-    has completed successfully. This should take about 1 minute to
-    complete.<img src="/static/600/media/image35.png" />
+18.  Scroll down to the “**Job runs**” list to verify that the ETL jobhas completed successfully. This should take about 1 minute tocomplete.![](/static/600/media/image35.png)
 
-19.  We need to repeat this process for an additional 4 jobs, to
-    transform the **sport_location, sporting_event,
-    sporting_event_ticket** and **person** tables.
+19.  We need to repeat this process for an additional 4 jobs, totransform the **sport_location, sporting_event,sporting_event_ticket** and **person** tables.
 
 During this process, we will need to modify different column data
 types. We can either repeat the process above for each table, or we
@@ -307,16 +250,13 @@ describe how to clone the job - if creating manually each time, follow
 the above steps but make sure you use the updated values from the
 tables below.
 
-20.  Return to the “**Jobs**” menu, and select the
-    “**Glue-Lab-SportsTeamParquet**” job by clicking the small circle
-    next to the name.
+20.  Return to the “**Jobs**” menu, and select the“**Glue-Lab-SportsTeamParquet**” job by clicking the small circlenext to the name.
 
-<img src="/static/600/media/image36.png" />
+![](/static/600/media/image36.png)
 
-21.  Under the “**Actions**” dropdown, select “**Clone job**”. Update the
-    job as per the following tables, then “**Save**” and “**Run**”.
+21.  Under the “**Actions**” dropdown, select “**Clone job**”. Update the job as per the following tables, then “**Save**” and “**Run**”.
 
-#### **1. Sport_Location:** 
+***a) Sport_Location:***
 
 Create a **Glue-Lab-SportLocationParquet** job with the following
 attributes:
@@ -332,7 +272,7 @@ attributes:
 |                                 | IAM Role               | xxx-GlueLabRole-xxx                   |
 |                                 | Job bookmark           | Disable                               |
 
-***2. Sporting_Event:***
+***b) Sporting_Event:***
 
 Create a **Glue-Lab-SportingEventParquet** job with the following
 attributes:
@@ -341,15 +281,15 @@ attributes:
 |---------------------------------|-----------------------|--------------------------------------------|
 | “Data source - S3 bucket” node  | Database              | ticketdata                                 |
 |                                 | Table                 | sporting_event                            |
-| “Transform - ApplyMapping” node | Schema tranformations | column “start_date_time” =&gt; TIMESTAMP |
-|                                 |                       | column “start_date” =&gt; DATE            |
+| “Transform - ApplyMapping” node | Schema tranformations | column “start_date_time” = TIMESTAMP |
+|                                 |                       | column “start_date” = DATE            |
 | “Data target - S3 bucket” node  | Format                | Parquet                                    |
 |                                 | S3 target path        | tickets/dms_parquet/sporting_event/      |
 | “Job details tab”               | Job Name              | Glue-Lab-SportingEventParquet              |
 |                                 | IAM Role              | xxx-GlueLabRole-xxx                        |
 |                                 | Job bookmark          | Disable                                    |
 
-***3. Sporting_Event_Ticket:***
+***c) Sporting_Event_Ticket:***
 
 Create a **Glue-Lab-SportingEventTicketParquet** job with the following
 attributes:
@@ -358,16 +298,16 @@ attributes:
 |---------------------------------|-----------------------|-----------------------------------------------|
 | “Data source - S3 bucket” node  | Database              | ticketdata                                    |
 |                                 | Table                 | sporting_event_ticket                       |
-| “Transform - ApplyMapping” node | Schema tranformations | column “id” =&gt; DOUBLE                      |
-|                                 |                       | column “sporting_event_id” =&gt; DOUBLE     |
-|                                 |                       | column “ticketholder_id” =&gt; DOUBLE        |
+| “Transform - ApplyMapping” node | Schema tranformations | column “id” = DOUBLE                      |
+|                                 |                       | column “sporting_event_id” = DOUBLE     |
+|                                 |                       | column “ticketholder_id” = DOUBLE        |
 | “Data target - S3 bucket” node  | Format                | Parquet                                       |
 |                                 | S3 target path        | tickets/dms_parquet/sporting_event_ticket/ |
 | “Job details tab”               | Job Name              | Glue-Lab-SportingEventTicketParquet           |
 |                                 | IAM Role              | xxx-GlueLabRole-xxx                           |
 |                                 | Job bookmark          | Disable                                       |
 
-***4. Person:***
+***d) Person:***
 
 Create a **Glue-Lab-PersonParquet** job with the following attributes:
 
@@ -375,7 +315,7 @@ Create a **Glue-Lab-PersonParquet** job with the following attributes:
 |---------------------------------|-----------------------|------------------------------|
 | “Data source - S3 bucket” node  | Database              | ticketdata                   |
 |                                 | Table                 | person                       |
-| “Transform - ApplyMapping” node | Schema tranformations | column “id” =&gt; DOUBLE     |
+| “Transform - ApplyMapping” node | Schema tranformations | column “id” = DOUBLE     |
 | “Data target - S3 bucket” node  | Format                | Parquet                      |
 |                                 | S3 target path        | tickets/dms_parquet/person/ |
 | “Job details tab”               | Job Name              | Glue-Lab-PersonParquet       |
@@ -385,78 +325,65 @@ Create a **Glue-Lab-PersonParquet** job with the following attributes:
 Create Glue Crawler for Parquet Files 
 -------------------------------------
 
-1.  In the Glue Studio naviation menu, select **Crawlers** to open the
-    Glue Crawlers page in a new tab. Click **Add crawler**.
+1.  In the Glue Studio naviation menu, select **Crawlers** to open theGlue Crawlers page in a new tab. Click **Add crawler**.
 
-<img src="/static/600/media/image37.png" />
+![](/static/600/media/image37.png)
 
-2.  For **Crawler name**, type **glue-lab-parquet-crawler** and Click
-    **Next**.
+2.  For **Crawler name**, type **glue-lab-parquet-crawler** and Click**Next**.
 
-<img src="/static/600/media/33.png" />
+![](/static/600/media/33.png)
 
-3.  In next screen **Specify crawler source type,** select **Data
-    Stores** as choice **for Crawler source type** and click **Next.**
+3.  In next screen **Specify crawler source type,**:
+    - For **Crawler source type**, select **DataStores**
+    - Click **Next**
 
-4.  In Add a data store screen
+4.  In Add a data store screen:
+    - For **Choose a data store**, select “S3”.
+    - For **Crawl data** in, select “**Specified path in my account**”.
+    - For **Include path**, specify the S3 Path (Parent Parquet folder)    that contains the nested parquet files e.g. s3://xxx-dmslabs3bucket-xxx/tickets/dms_parquet
+    - Click **Next**.
 
-    1.  For **Choose a data store**, select “S3”.
+![](/static/600/media/image39.png)
 
-    2.  For **Crawl data** in, select “**Specified path in my
-        account**”.
-
-    3.  For Include path, specify the S3 Path (Parent Parquet folder)
-        that contains the nested parquet files e.g.,
-        s3://xxx-dmslabs3bucket-xxx/tickets/dms_parquet
-
-    4.  Click **Next**.
-
-<img src="/static/600/media/image39.png" />
-
-<img src="/static/600/media/image40.png" />
+![](/static/600/media/image40.png)
 
 5.  For Add another data store, select **No** and Click **Next**.
 
-<img src="/static/600/media/image41.png" />
+![](/static/600/media/image41.png)
 
-6.  On the Choose an IAM role page, select **Choose an existing IAM
-    role**.
+6.  On the Choose an IAM role page, select **Choose an existing IAMrole**.
 
 For IAM role, select the existing role “xxx-**GlueLabRole**-xxx” and
 Click **Next**.
 
-<img src="/static/600/media/image42.png" />
+![](/static/600/media/image42.png)
 
 7.  For **Frequency**, select “Run On Demand” and Click **Next**.
 
-<img src="/static/600/media/image43.png" />
+![](/static/600/media/image43.png)
 
-8.  For the crawler’s output database, choose your existing database
-    which you created earlier e.g. “**ticketdata**”
+8.  For the crawler’s output database, choose your existing databasewhich you created earlier e.g. “**ticketdata**”
 
 9.  For the **Prefix added to tables** (optional), type "**parquet_**"
 
-<img src="/static/600/media/image44.png" />
+![](/static/600/media/image44.png)
 
 10.  Review the summary page and click **Finish**.
 
-11.  Click **Run Crawler**. Once your crawler has finished running, you
-    should report that tables were added from 1 to 5, depending on how
-    many parquet ETL conversions you set up in the previous section.
+11.  Click **Run Crawler**. Once your crawler has finished running, youshould report that tables were added from 1 to 5, depending on howmany parquet ETL conversions you set up in the previous section.
 
-<img src="/static/600/media/image45.png" />
+![](/static/600/media/image45.png)
 
 Confirm you can see the tables:
 
 12.  In the left navigation pane, click **Tables**.
 13.  Add the filter "parquet" to return the newly created tables.
 
-<img src="/static/600/media/image46.png" /><span
-id="_Glue_Job_Bookmark:" class="anchor"></span>
+![](/static/600/media/image46.png)
 
-#### PART B: Glue Job Bookmark (Optional):
+## PART B: Glue Job Bookmark (Optional):
 
-****Pre-requisite: Completion of CDC part of DMS Lab ****
+**Pre-requisite: Completion of CDC part of DMS Lab**
 
 Step 1: Create Glue Crawler for ongoing replication (CDC Data)
 --------------------------------------------------------------
@@ -466,256 +393,181 @@ capture.
 
 1.  On the AWS Glue menu, select Crawlers.
 
-<img src="/static/600/media/image9.png" />
+![](/static/600/media/image9.png)
 
 2.  Click **Add crawler**.
 
-3.  Enter the crawler name for ongoing replication. This name should be
-    descriptive and easily recognized (e.g.,
-    "**glue-lab-cdc-crawler**").
+3.  Enter the crawler name for ongoing replication. This name should bedescriptive and easily recognized (e.g.,"**glue-lab-cdc-crawler**").
 
-4.  Optionally, enter the description. This should also be descriptive
-    and easily recognized and Click
-    **Next**.<img src="/static/600/media/image47.png" />
+4.  Optionally, enter the description. This should also be descriptiveand easily recognized and Click**Next**.![](/static/600/media/image47.png)
 
-5.  Choose **Data Stores** as Crawler Source Type**, Crawl all folders**
-    and Click **Next**
+5.  Choose **Data Stores** as Crawler Source Type**, Crawl all folders**and Click **Next**
 
-<img src="/static/600/media/image11.png" />
+![](/static/600/media/image11.png)
 
 6.  On the Add a data store page, make the following selections:
-
-    1.  For **Choose a data store**, click the drop-down box and select
-        **S3**.
-
-    2.  For **Crawl data in**, select **Specified path in my account**.
-
-    3.  For **Include path**, enter the **target folder** for your DMS
-        ongoing replication, e.g.,
-        “s3://xxx-dmslabs3bucket-xxx/**cdc/dms_sample**”
+    - For **Choose a data store**, click the drop-down box and select **S3**.
+    - For **Crawl data in**, select **Specified path in my account**.
+    - For **Include path**, enter the **target folder** for your DMS ongoing replication, e.g.,    “s3://xxx-dmslabs3bucket-xxx/**cdc/dms_sample**”
 
 7.  Click **Next**.
 
-<img src="/static/600/media/image48.png" />
+![](/static/600/media/image48.png)
 
-8.  On the **Add another data store page**, select **No** and Click
-    **Next**.
+8.  On the **Add another data store page**, select **No** and Click**Next**.
 
-<img src="/static/600/media/image49.png" />
+![](/static/600/media/image49.png)
 
 9.  On the **Choose an IAM role** page, make the following selections:
-
-    1.  Select **Choose an existing IAM role**.
-
-    2.  **For IAM role**, select **xxx-GlueLabRole-xxx**. E.g.
-        “dmslab-student-GlueLabRole-ZOQDII7JTBUM”
+    - Select **Choose an existing IAM role**.
+    - **For IAM role**, select **xxx-GlueLabRole-xxx**. E.g. “dmslab-student-GlueLabRole-ZOQDII7JTBUM”
 
 10.  Click **Next**.
 
-<img src="/static/600/media/image50.png" />
+![](/static/600/media/image50.png)
 
-11.  On the Create a schedule for this crawler page, for Frequency,
-    select **Run on demand** and Click **Next**.
+11.  On the Create a schedule for this crawler page, for Frequency,select **Run on demand** and Click **Next**.
 
-<img src="/static/600/media/image51.png" />
+![](/static/600/media/image51.png)
 
-12.  On the Configure the crawler’s output page, select the existing
-    **Database** for crawler output (e.g., "**ticketdata**").
+12.  On the Configure the crawler’s output page, select the existing**Database** for crawler output (e.g., "**ticketdata**").
 
 13.  For **Prefix added to tables,** specify "**cdc_**"
 
-14.  For Configuration options (optional), keep the **default**
-    selections and click **Next**.
+14.  For Configuration options (optional), keep the **default**selections and click **Next**.
 
-<img src="/static/600/media/image52.png"  />
+![](/static/600/media/image52.png)
 
-15.  Review the summary page noting the Include path and Database target
-    and Click **Finish**. The crawler is now ready to run.
+15.  Review the summary page noting the Include path and Database targetand Click **Finish**. The crawler is now ready to run.
 
-<img src="/static/600/media/image53.png" />
+![](/static/600/media/image53.png)
 
-16.  Tick the crawler name “**glue-lab-cdc-crawler”**, click **Run
-    crawler** button.
+16.  Tick the crawler name “**glue-lab-cdc-crawler”**, click **Runcrawler** button.
 
-17.  When the crawler is completed, you can see it has “Status” as
-    **Ready,** Crawler will change status from starting to stopping,
-    wait until crawler comes back to ready state, you can see that it
-    has created **2 tables**.
+17.  When the crawler is completed, you can see it has “Status” as**Ready,** Crawler will change status from starting to stopping,wait until crawler comes back to ready state, you can see that ithas created **2 tables**.
 
-<img src="/static/600/media/image54.png" />
+![](/static/600/media/image54.png)
 
-18.  Click the database name (e.g., "**ticketdata**") to browse the
-    tables. Specify "**cdc**" as the filter to list only newly imported
-    tables.
+18.  Click the database name (e.g., "**ticketdata**") to browse thetables. Specify "**cdc**" as the filter to list only newly importedtables.
 
-<img src="/static/600/media/image55.png" />
+![](/static/600/media/image55.png)
 
 Step 2: Create a Glue Job with Bookmark Enabled
 -----------------------------------------------
 
-1.  On the left-hand side of Glue Console, click on **Jobs** and then
-    Click on **Add Job.**
+1.  On the left-hand side of Glue Console, click on **Jobs** and thenClick on **Add Job.**
 
-<img src="/static/600/media/image56.png" />
+![](/static/600/media/image56.png)
 
 2.  On the Job properties page, make the following selections:
+    - For **Name**,    type **Glue-Lab-TicketHistory-Parquet-with-bookmark**
+    - For **IAM role**, choose existing role “xxx-**GlueLabRole**-xxx”
+    - For **Type**, Select **Spark**
+    - For **Glue Version**, select **Spark 2.4, Python 3 (Glue version 2.0)** or whichever is the latest version
+    - For **This job runs**, select **A proposed script generated by AWS Glue**.
+    - For **Script file name**, use the **default**.
+    - For **S3 path where the script is stored**, provide a unique Amazon S3 path to store the scripts. (You can keep the **default** for this lab.)
+    - For **Temporary directory**, provide a unique Amazon S3 directory for a temporary directory. (You can keep the **default** for this lab.)
 
-    1.  For **Name**,
-        type **Glue-Lab-TicketHistory-Parquet-with-bookmark**
-
-    2.  For **IAM role**, choose existing role “xxx-**GlueLabRole**-xxx”
-
-    3.  For **Type**, Select **Spark**
-
-    4.  For **Glue Version**, select **Spark 2.4, Python 3 (Glue version
-        2.0)** or whichever is the latest version
-
-    5.  For **This job runs**, select **A proposed script generated by
-        AWS Glue**.
-
-    6.  For **Script file name**, use the **default**.
-
-    7.  For **S3 path where the script is stored**, provide a unique
-        Amazon S3 path to store the scripts. (You can keep the
-        **default** for this lab.)
-
-    8.  For **Temporary directory**, provide a unique Amazon S3
-        directory for a temporary directory. (You can keep the
-        **default** for this lab.)
-
-3.  Expand the **Advanced properties** section. For Job bookmark, select
-    **Enable** from the drop-down option.
+3.  Expand the **Advanced properties** section. For Job bookmark, select **Enable** from the drop-down option.
 
 4.  Expand on the **Monitoring** options, enable **Job metrics**.
 
 5.  Click **Next**
 
-<img src="/static/600/media/image57.png" />
+![](/static/600/media/image57.png)
 
-6.  In **Choose a data source**, select **cdc_ticket_purchase_hist**
-    as we are generating new data entries for **ticket_purchase_hist**
-    table. Click **Next**
+6.  In **Choose a data source**, select **cdc_ticket_purchase_hist**as we are generating new data entries for **ticket_purchase_hist**table. Click **Next**
 
-<img src="/static/600/media/56.png" />
+![](/static/600/media/56.png)
 
-7.  In **Choose a transform type**, select **Change Schema** and Click
-    **Next**
+7.  In **Choose a transform type**, select **Change Schema** and Click**Next**
 
-<img src="/static/600/media/image59.png" />
+![](/static/600/media/image59.png)
 
 8.  In Choose a data target:
+    - Select **Create tables in your data target**
+    - For **Data store**: select **Amazon S3**
+    - Format: **parquet**
+    - **Target path**: s3://xxx-dmslabs3bucket-xxx/**cdc_bookmark/ticket_purchase_history/data/**
+    - Click **Next**
 
-    1.  Create tables in your data target
+![](/static/600/media/image60.png)
 
-    2.  For **Data store**: select **Amazon** **S3**
+9.  In map the source columns to target columns window, leave everythingas **default** and Click on **Save job and edit script**.
 
-    3.  Format: **parquet**
+![](/static/600/media/59.png)
 
-    4.  **Target path**:
-        s3://xxx-dmslabs3bucket-xxx/**cdc_bookmark/ticket_purchase_history/data/**
+10.  In the next window, review the job script and click on **Run job**,then click on **close** **mark** on the top right of the window toclose the screen.
 
-    5.  Click **Next**
+![](/static/600/media/60.png)
 
-<img src="/static/600/media/image60.png" />
+11.  Once the job finishes its run, check the **S3 bucket** for theparquet partitioned data.
 
-9.  In map the source columns to target columns window, leave everything
-    as **default** and Click on **Save job and edit script**.
+![](/static/600/media/61.png)
 
-<img src="/static/600/media/59.png" />
+Step 3: Create Glue crawler for Parquet data in S3 
+--------------------------------------------------------
 
-10.  In the next window, review the job script and click on **Run job**,
-    then click on **close** **mark** on the top right of the window to
-    close the screen.
-
-<img src="/static/600/media/60.png" />
-
-11.  Once the job finishes its run, check the **S3 bucket** for the
-    parquet partitioned data.
-
-<img src="/static/600/media/61.png" />
-
-#### Step 3: Create Glue crawler for Parquet data in S3 
-
-
-1.  Once you have the data in S3 bucket, navigate to **Glue Console**
-    and now we will crawl the parquet data in S3 to create data catalog.
+1.  Once you have the data in S3 bucket, navigate to **Glue Console**and now we will crawl the parquet data in S3 to create data catalog.
 
 2.  Click on **Add crawler**
 
-<img src="/static/600/media/image64.png" />
+![](/static/600/media/image64.png)
 
-3.  In crawler configuration window, provide crawler name as
-    **glue_lab_cdc_bookmark_crawler** and Click **Next**.
+3.  In crawler configuration window, provide crawler name as**glue_lab_cdc_bookmark_crawler** and Click **Next**.
 
-<img src="/static/600/media/image65.png" />
+![](/static/600/media/image65.png)
 
-4.  In **Specify** **crawler source type**, select **Data stores** and
-    **Crawl all folders**. Click **Next**
+4.  In **Specify** **crawler source type**, select **Data stores** and**Crawl all folders**. Click **Next**
 
-<img src="/static/600/media/image66.png" />
+![](/static/600/media/image66.png)
 
 5.  In **Add a data store**:
-
-    1.  For **Choose a data store**, select **S3**
-
-    2.  For the **Include path**, click the folder icon and choose your
-        target S3 bucket, then append
-        **/cdc_bookmark/ticket_purchase_history** , e.g.,
-        “s3://xxx-dmslabs3bucket-xxx/cdc_bookmark/ticket_purchase_history”
+  - For **Choose a data store**, select **S3**
+  - For the **Include path**, click the folder icon and choose your target S3 bucket, then append **/cdc_bookmark/ticket_purchase_history** , e.g.,“s3://xxx-dmslabs3bucket-xxx/cdc_bookmark/ticket_purchase_history”
 
 6.  Click on **Next**
 
-<img src="/static/600/media/image67.png" />
+![](/static/600/media/image67.png)
 
 7.  For **Add another data** store, select **No** and click **Next**.
 
-<img src="/static/600/media/image68.png" />
+![](/static/600/media/image68.png)
 
-8.  In **Choose an IAM role**, select an existing IAM role contains
-    **GlueLabRole** text. Something looks like this:
-    xxx-**GlueLabRole**-xxx<img src="/static/600/media/image69.png" />
+8.  In **Choose an IAM role**, select an existing IAM role contains**GlueLabRole** text. Something looks like this:xxx-**GlueLabRole**-xxx
 
-9.  For setting the **frequency** in create a schedule for this crawler,
-    select “**Run on demand**”. Click **Next**
+![](/static/600/media/image69.png)
+
+9.  For setting the **frequency** in create a schedule for this crawler,select “**Run on demand**”. Click **Next**
 
 10.  For the crawler’s output:
+  - For Database, select “**ticketdata**” database.
+  - Optionally, add prefix to the newly created tables for easy identification. Provide the prefix as **bookmark_parquet_**
+  - Click **Next**
 
-    1.  For Database, select “**ticketdata**” database.
+![](/static/600/media/image70.png)
 
-    2.  Optionally, add prefix to the newly created tables for easy
-        identification. Provide the prefix as **bookmark_parquet_**
+11.  Review all the details and click on **Finish**. Then **Run****crawler**.
 
-    3.  Click **Next**
+![](/static/600/media/image71.png)
 
-<img src="/static/600/media/image70.png"  />
+12.  After the crawler finishes running, click on Databases, select “**ticketdata**” and view tables in this database. You will find thenewly created table as “**bookmark_parquet_ticket_purchase_history**”
 
-11.  Review all the details and click on **Finish**. Then **Run**
-    **crawler**.
-    <img src="/static/600/media/image71.png" />
+![](/static/600/media/image72.png)
 
-12.  After the crawler finishes running, click on Databases, select
-    “**ticketdata**” and view tables in this database. You will find the
-    newly created table as
-    “**bookmark_parquet_ticket_purchase_history**”
+13.  Once the table is created, click on **Action**, from **dropdown** select **View Data.**
 
-<img src="/static/600/media/image72.png" />
+If it’s the first time you are using Athena in your AWS Account, click **Get Started**
 
-13.  Once the table is created, click on **Action** and from **dropdown**
-    select **View Data.**
+![](/static/600/media/image73.png)
 
-If it’s the first time you are using Athena in your AWS Account, click
-**Get Started**
+Then click **set up a query result location in Amazon S3** at the top.
 
-<img src="/static/600/media/image73.png" />
+![](/static/600/media/image74.png)
 
-Then click **set up a query result location in Amazon S3** at the top
-
-<img src="/static/600/media/image74.png" />
-
-In the pop-up window in the **Query result location** field, enter
-your s3 bucket location followed by **/**, so that it looks like
-**s3://xxx-dmslabs3bucket-xxx/** and click
-**Save**<img src="/static/600/media/image75.png" />
+In the pop-up window in the **Query result location** field, enter your s3 bucket location followed by "**/**", so that it looks like **s3://xxx-dmslabs3bucket-xxx/** and click**Save**
+![](/static/600/media/image75.png)
 
 To select some rows from the table, try running:
 
@@ -732,150 +584,106 @@ SELECT count(*) as recordcount FROM
 ```
 Before moving on to next step, note the rowcount.
 
-#### Step 4: Generate CDC data and to observe bookmark functionality
+Step 4: Generate CDC data and to observe bookmark functionality
+--------------------------------------------------------------------
 
-Ask your instructor generate more CDC data at source database, if you
-ran the instructor setup on your own, then make sure to follow
-“**Generate the CDC Data”** section from instructor prelab.
+Ask your instructor generate more CDC data at source database, if you ran the instructor setup on your own, then make sure to follow "**Generate the CDC Data**" section from instructor prelab.
 
-1.  To make sure the new data has been successfully generated, check the
-    S3 bucket for cdc data, you will see new files generated. Note the
-    time when the files were generated.
+1.  To make sure the new data has been successfully generated, check theS3 bucket for cdc data, you will see new files generated. Note thetime when the files were generated.
 
-<img src="/static/600/media/image76.png" />
+![](/static/600/media/image76.png)
 
-2.  Rerun the Glue job **Glue-Lab-TicketHistory-Parquet-with-bookmark**
-    you created in Step 2
+2.  Rerun the Glue job **Glue-Lab-TicketHistory-Parquet-with-bookmark**you created in Step 2
 
-3.  Go to the Athena Console, and rerun the following query to notice
-    the increase in row count:
+3.  Go to the Athena Console, and rerun the following query to noticethe increase in row count:
+
 ```
-SELECT count(*) as recordcount FROM
-"ticketdata"."bookmark_parquet_ticket_purchase_history";
+SELECT count(*) as recordcount FROM "ticketdata"."bookmark_parquet_ticket_purchase_history";
 ```
 To review the latest transactions, run:
 ```
 SELECT * FROM
-"ticketdata"."bookmark_parquet_ticket_purchase_history" order by
-transaction_date_time desc limit 100;
+"ticketdata"."bookmark_parquet_ticket_purchase_history" order by transaction_date_time desc limit 100;
 ```
 
-#### PART C: Glue Workflows (Optional, self-paced)
+## PART C: Glue Workflows (Optional, self-paced)
 
-****Pre-requisite before creating workflow** - completed Part B**
+**Pre-requisite before creating workflow - completed Part B**
 
 Overview:
 ---------
 
-In AWS Glue, you can use workflows to create and visualize complex
-extract, transform, and load (ETL) activities involving multiple
-crawlers, jobs, and triggers. Each workflow manages the execution and
-monitoring of all its components. As a workflow runs each component, it
-records execution progress and status, providing you with an overview of
-the larger task and the details of each step. The AWS Glue console
-provides a visual representation of a workflow as a graph.
+In AWS Glue, you can use workflows to create and visualize complex extract, transform, and load (ETL) activities involving multiple crawlers, jobs, and triggers. Each workflow manages the execution and
+monitoring of all its components. As a workflow runs each component, it records execution progress and status, providing you with an overview of the larger task and the details of each step. The AWS Glue console provides a visual representation of a workflow as a graph.
 
 Creating and Running Workflows:
 -------------------------------
 
-Above mentioned Part A (ETL with Glue) and Part B (Glue Job Bookmarks)
-can be created and executed using workflows. Complex ETL jobs involving
-multiple crawlers and jobs can also be created and executed using
-workflows in an automated fashion. Below is a simple example to
-demonstrate how to create and run workflows.
+Above mentioned Part A (ETL with Glue) and Part B (Glue Job Bookmarks) can be created and executed using workflows. Complex ETL jobs involving multiple crawlers and jobs can also be created and executed using
+workflows in an automated fashion. Below is a simple example to demonstrate how to create and run workflows.
 
-Try creating a new Glue Workflow to string together the two Crawlers and
-one Job from part B as follows:
+Try creating a new Glue Workflow to string together the two Crawlers and one Job from part B as follows:
 
-On-demand trigger -&gt; glue-lab-cdc-crawler -&gt;
-Glue-Lab-TicketHistory-Parquet-with-bookmark -&gt;
+On-demand trigger - glue-lab-cdc-crawler -
+Glue-Lab-TicketHistory-Parquet-with-bookmark -
 glue_lab_cdc_bookmark_crawler
 
-<img src="/static/600/media/image77.png" />
+![](/static/600/media/image77.png)
 
 **To create a workflow:**
 
-1.  Navigate to **AWS Glue Console** and under **ETL**, click on
-    **Workflows**. Then Click on **Add Workflow**.
+1.  Navigate to **AWS Glue Console** and under **ETL**, click on**Workflows**. Then Click on **Add Workflow**.
 
-<img src="/static/600/media/image78.png" />
+![](/static/600/media/image78.png)
 
-2.  Give the workflow name as “**Workflow_tickethistory**”. Provide a
-    description (optional) and click on **Add Workflow** to create it.
+2.  Give the workflow name as “**Workflow_tickethistory**”. Provide adescription (optional) and click on **Add Workflow** to create it.
 
-3.  Click on the **workflow** and scroll to the bottom of the page. You
-    will see an option **Add Trigger**. Click on that button.
-    <img src="/static/600/media/image79.png" />
+3.  Click on the **workflow** and scroll to the bottom of the page. Youwill see an option **Add Trigger**. Click on that button.
 
-<img src="/static/600/media/image80.png" />
+![](/static/600/media/image79.png)
 
-4.  In **Add Trigger** window, From Clone Existing and Add New options,
-    click on **Add New**.
+![](/static/600/media/image80.png)
 
-    1.  Provide **Name** as “**trigger1**”
+4.  In **Add Trigger** window, From Clone Existing and Add New options,click on **Add New**.
+  - Provide **Name** as “**trigger1**”
+  - Provide a **description**: Trigger to start workflow
+  - **Trigger type**: **On-demand**.
+  - Click on **Add**
 
-    2.  Provide a **description**: Trigger to start workflow
+Triggers are used to initiate the workflow and there are multiple ways to invoke the trigger. Any scheduled operation or any event can activate the trigger which in turn starts the workflow
 
-    3.  **Trigger type**: **On-demand**.
+![](/static/600/media/image81.png)
 
-    4.  Click on **Add**
+5.  Click on **trigger1** to add a **new node**. New Node can be acrawler or job, depending upon the workflow you want to build.
 
-Triggers are used to initiate the workflow and there are multiple ways
-to invoke the trigger. Any scheduled operation or any event can activate
-the trigger which in turn starts the workflow
+![](/static/600/media/image82.png)
 
-<img src="/static/600/media/image81.png" />
-
-5.  Click on **trigger1** to add a **new node**. New Node can be a
-    crawler or job, depending upon the workflow you want to build.
-
-<img src="/static/600/media/image82.png" />
-
-6.  Click on **Add node,** a new window to add jobs or crawlers will
-    open. Select the Crawler **glue-lab-cdc-crawler**, then **Add.**
+6.  Click on **Add node,** a new window to add jobs or crawlers willopen. Select the Crawler **glue-lab-cdc-crawler**, then **Add.**
 
 7.  Click on the crawler and **Add Trigger** provide the following:
+  - **Name**: **trigger2**
+  - **Description**: Trigger to execute job
+  - **Trigger** **type**: **Event**
+  - **Trigger logic**: **Start after ALL watched event.** This will make sure that job starts once Glue Crawler finishes.
+  - Click **Add**
 
-    1.  **Name**: **trigger2**
+![](/static/600/media/image83.png)
 
-    2.  **Description**: Trigger to execute job
-
-    3.  **Trigger** **type**: **Event**
-
-    4.  **Trigger logic**: **Start after ALL watched event.** This will
-        make sure that job starts once Glue Crawler finishes.
-
-    5.  Click **Add**
-
-<img src="/static/600/media/image83.png" />
-
-8.  After **trigger2** is added to workflow, Click on **Add node,**
-    select job **Glue-Lab-TicketHistory-Parquet-with-bookmark,** click
-    **Add.**
+8.  After **trigger2** is added to workflow, Click on **Add node,**select job **Glue-Lab-TicketHistory-Parquet-with-bookmark,** click**Add.**
 
 9.  Click on the job and **Add Trigger** provide the following:
+  - **Name**: **trigger3**
+  - **Description**: Trigger to execute crawler
+  - **Trigger** **type**: **Event**
+  - **Trigger logic**: **Start after ANY watched event.** This will make sure that crawler starts once Glue job finishes processing of ALL data.
+  - Click **Add**
 
-    1.  **Name**: **trigger3**
+10.  Click on **Add node,** Select the Crawler**glue_lab_cdc_bookmark_crawler**, then **Add.**
 
-    2.  **Description**: Trigger to execute crawler
+11.  Select your workflow, click on **Actions-Run** and this will start the first trigger “trigger1”
 
-    3.  **Trigger** **type**: **Event**
+![](/static/600/media/image84.png)
 
-    4.  **Trigger logic**: **Start after ANY watched event.** This will
-        make sure that crawler starts once Glue job finishes processing
-        of ALL data.
-
-    5.  Click **Add**
-
-10.  Click on **Add node,** Select the Crawler
-    **glue_lab_cdc_bookmark_crawler**, then **Add.**
-
-11.  Select your workflow, click on **Actions-&gt;Run** and this will
-    start the first trigger “trigger1”
-
-<img src="/static/600/media/image84.png" />
-
-12.  Once the workflow is completed, you will observe that glue job and
-    crawlers have been successfully executed.
+12.  Once the workflow is completed, you will observe that glue job andcrawlers have been successfully executed.
 
 #### Congratulations!! You have successfully completed this lab

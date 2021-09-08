@@ -22,9 +22,9 @@ To do this, we will first set up an IAM role to use in DataBrew, and an S3 bucke
 
 1. Click the **Deploy to AWS** icon below to create the AWS resources for the DataBrew lab.
 
-| Launch Quick Create Template                                                                                                                                                                                                                                                                  | Region                     |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- |
-| <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=databrew-lab&templateURL=https://s3.us-east-1.amazonaws.com/aws-dataengineering-day.workshop.aws/DataBrew_PreLab_CFN.yaml" target="_blank"><img src="/static/images/00-deploy-to-aws.png" ></a> | **N.Virginia** (us-east-1) |
+| Launch Quick Create Template| Region |
+| :-------------------- | :------------------:|
+|:[![Launch CloudFormation](/static/images/00-deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=databrew-lab&templateURL=https://s3.us-east-1.amazonaws.com/aws-dataengineering-day.workshop.aws/DataBrew_PreLab_CFN.yaml)|:**N.Virginia** (us-east-1)|
 
 2. Check the box "I acknowledge that ...", then click on "Create Stack" to create the stack
 

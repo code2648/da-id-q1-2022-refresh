@@ -44,7 +44,7 @@ Labs are also available in GitHub - https://github.com/aws-samples/data-engineer
 
 | Launch Quick Create Template                                                                                                                                                                                                                                                                                                               | Region                     |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------- |
-| <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.us-east-1.amazonaws.com%2Faws-dataengineering-day.workshop.aws%2FDMSlab_student_CFN.json&stackName=dmslab-student&param_DMSCWRoleCreated=no" target="_blank"><img src="/static/images/00-deploy-to-aws.png" ></a> | **N.Virginia** (us-east-1) |
+| [![Launch CloudFormation](/static/images/00-deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.us-east-1.amazonaws.com%2Faws-dataengineering-day.workshop.aws%2FDMSlab_student_CFN.json&stackName=dmslab-student&param_DMSCWRoleCreated=no) | **N.Virginia** (us-east-1) |
 
 4. Check the box "I acknowledge that ...", then click on "Create Stack" to create the stack
 
@@ -53,4 +53,4 @@ Labs are also available in GitHub - https://github.com/aws-samples/data-engineer
 In case you aren't able to launch the quick create stack, you can download the [template file](https://s3.us-east-1.amazonaws.com/aws-dataengineering-day.workshop.aws/DMSlab_student_CFN.json) and then follow the steps to [create stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) manually.
 
 You have successfully completed the student prelab and setup all pre-requisite required to run the rest of the workshop.
-Please proceed to the next lab [Data ingestion with DMS](../400/440-main-lab).
+Please proceed to the next lab [Data ingestion with DMS](../430-main-lab).
