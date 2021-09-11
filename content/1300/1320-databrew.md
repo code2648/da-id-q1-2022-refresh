@@ -20,47 +20,44 @@ In this lab you will be completing the following tasks.
 1. Navigate to the AWS Glue DataBrew service
    ![](/static/1300/images/1.png)
 
-2. On the DataBrew console, select [Projects](https://console.aws.amazon.com/databrew/home?region=us-east-1#projects)
+2. On the DataBrew console, select [Projects](https://console.aws.amazon.com/databrew/home#projects)
    ![](/static/1300/images/2.png)
 
-3. Click **Create project**
+3. Click **Create project**   
 4. In the **Project details** section, enter `covid-states-daily` as the project name
    ![](/static/1300/images/3.png)
    
 5. In the **Select a dataset** section, select **New dataset** and enter `covid-states-daily-stats`
    ![](/static/1300/images/4.png)
    
-6. In the **Connect to a new dataset** section, select **Amazon S3** under "Data lake/data store"
+6. In the **Connect to a new dataset** section, select **Amazon S3** under "Data lake/data store"  
 
-   Enter the S3 path `s3://aws-dataengineering-day.workshop.aws/states_daily.csv.gz`
+   Enter the **DatasetS3Path** that is available in Event Engine Team Dashboard or outputs section of your CloudFormation stack 
    ![](/static/1300/images/5.png)
 
 7. In the **Sampling** section, leave the default configuration values
    ![](/static/1300/images/6.png)
 
-8. In the **Permissions** section, select the role `databrew-lab-DataBrewLabRole-xxxxx` from the drop-down list
+8. In the **Permissions** section, select the role `databrew-lab-DataBrewLabRole-xxxxx` from the drop-down list  
    ![](/static/1300/images/7.png)
 
-9. Click **Create project**
-
+9. Click **Create project**   
    Glue DataBrew will create the project, this may take a few minutes.
 
    ![](/static/1300/images/8.png)
 
 ### Exploring the dataset
 
-10. When the project has been created, you will be presented with the **Grid** view. This is the default view, where a sample of the data is shown in tabular format.
+1. When the project has been created, you will be presented with the **Grid** view. This is the default view, where a sample of the data is shown in tabular format.  
 ![](/static/1300/images/40.PNG)
-
     The Grid view shows
     - Columns in the dataset 
     - Data type of each column
     - Summary of the range of values that have been found
     - Statistical distribution for numerical columns
 
-11. Click on the **Schema** tab
-
-    The Schema view shows the schema that has been inferred from the dataset. In schema view, you can see statistics about the data values in each column.
+2. Click on the **Schema** tab  
+    The Schema view shows the schema that has been inferred from the dataset. In schema view, you can see statistics about the data values in each column.  
 
     In the Schema view, you can
     - Select the checkbox next to a column to view the summary of statistics for the column values
@@ -69,7 +66,7 @@ In this lab you will be completing the following tasks.
     - Change the data type of columns
     - Rearrange the column order by dragging and dropping the columns
 
-12. Click on the **Profile** tab
+3. Click on the **Profile** tab
 
     In the Profile view, you can run a data profile job to examine and collect statistical summaries about the data. A data profile is an assessment in terms of structure, content, relationships, and derivation.
 
@@ -89,9 +86,9 @@ In this lab you will be completing the following tasks.
 
     Click **Create and run job**
     
-    The data profile job takes approximately 5 minutes complete.  You can continue with the rest of the labs from step 15 below while you wait, and retun to the following steps to examine the profile of the dataset. 
+    The data profile job takes approximately 5 minutes complete. 
 
-13. Click on **Jobs** from the menu on the left hand side of the DataBrew console.
+4.  Click on **Jobs** from the menu on the left hand side of the DataBrew console.
 
     Click on **Profile jobs** tab to view a list of profile jobs.
 
@@ -107,7 +104,7 @@ In this lab you will be completing the following tasks.
 
     The data profile shows a summary of the rows and columns in the dataset, how many columns and rows are valid, and correlations between columns.
 
-14. Click on the **Column statistics** tab to view a column-by-column breakdown of the data values.
+5.  Click on the **Column statistics** tab to view a column-by-column breakdown of the data values.
 
     ![](/static/1300/images/16.png)
 
@@ -119,9 +116,9 @@ In this section, we will apply the following transformations to the dataset.
 - Fill the missing values in the `probableCases` column with 0
 - Map the values of the `dataQualityGrade` column to a numerical value
 
-15. Navigate back to the `covid-states-daily` project grid view.
+1. Navigate back to the `covid-states-daily` project grid view.
 
-16. DataBrew has inferred data type of the `date` column as integer. We will convert the data type of the `date` column to string.
+2. DataBrew has inferred data type of the `date` column as integer. We will convert the data type of the `date` column to string.
 
     Click on the `#` icon next to the `date` column name and select **string**
 
@@ -131,7 +128,7 @@ In this section, we will apply the following transformations to the dataset.
 
     ![](/static/1300/images/18.png)
 
-18. We will duplicate the `date` column first before splitting it into `year`, `month`, `day` columns, as the original column will be deleted by this transformation.
+3. We will duplicate the `date` column first before splitting it into `year`, `month`, `day` columns, as the original column will be deleted by this transformation.
 
     Select the `...` at the top of the `date` column.
 
@@ -147,7 +144,7 @@ In this section, we will apply the following transformations to the dataset.
 
     A copy of the `date` column is created with the name `date_copy`. Note that the **duplicate column** transformation is added as a step to the recipe at the right.
 
-19. Let's split the `date_copy` column into `year`, `month`, `day` columns.
+4. Let's split the `date_copy` column into `year`, `month`, `day` columns.
 
     Select the `...` at the top of the `date_copy` column.
 
@@ -165,13 +162,13 @@ In this section, we will apply the following transformations to the dataset.
 
     Click **Apply**
 
-20. Next, split the `date_copy_2` column into month and day.
+5. Next, split the `date_copy_2` column into month and day.
 
     The result should look like the screenshot below.
 
     ![](/static/1300/images/24.png)
 
-21. Let's rename the new columns to `year`, `month`, `day`
+6. Let's rename the new columns to `year`, `month`, `day`
 
     Click on the `date_copy_1` column and select **Rename** from the menu. Enter `year` as the new column name, and click **Apply**
 
@@ -183,7 +180,7 @@ In this section, we will apply the following transformations to the dataset.
 
     ![](/static/1300/images/38.png)
 
-22. The `probableCases` column has some missing values. We will set these missing values to 0.
+7. The `probableCases` column has some missing values. We will set these missing values to 0.
 
     To navigate to the `probableCases` column, click on the **columns** drop-down list at the top, enter `probableCases` in the search field and click **View**.
 
@@ -197,7 +194,7 @@ In this section, we will apply the following transformations to the dataset.
 
     ![](/static/1300/images/27.png)
 
-23. Map the values of the `dataQualityGrade` column to numerical values.
+8. Map the values of the `dataQualityGrade` column to numerical values.
 
     To navigate to the `dataQualityGrade` column, click on the **columns** drop-down list at the top, enter `dataQualityGrade` in the search field and click **View**.
 
@@ -227,7 +224,7 @@ In this section, we will apply the following transformations to the dataset.
 
     After this transform, the new column `dataQualityGrade_mapped` is of type double, convert this column to integer.
 
-24. You are now ready to publish the recipe so that it can be used in DataBrew jobs. The final recipe looks like the following.
+9. You are now ready to publish the recipe so that it can be used in DataBrew jobs. The final recipe looks like the following.
 
     ![](/static/1300/images/31.png)
 
@@ -241,7 +238,7 @@ In this section, we will apply the following transformations to the dataset.
 
 ### Creating a DataBrew job
 
-25. Click on **Jobs** from the menu on the left hand side of the DataBrew console.
+1. Click on **Jobs** from the menu on the left hand side of the DataBrew console.
 
     On the **Recipe jobs** tab, click on **Create job**
 
@@ -269,7 +266,7 @@ In this section, we will apply the following transformations to the dataset.
 
     Click **Create and run job**
 
-26. The DataBrew job is created and the job status is `Running`
+2. The DataBrew job is created and the job status is `Running`
 
     ![](/static/1300/images/36.png)
 
@@ -281,7 +278,7 @@ In this section, we will apply the following transformations to the dataset.
 
 ### Viewing data lineage
 
-27. In DataBrew, navigate back to the `covid-states-daily` project
+1. In DataBrew, navigate back to the `covid-states-daily` project
     
     Click on **Lineage** at the top right
 

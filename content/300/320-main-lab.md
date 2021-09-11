@@ -1,5 +1,5 @@
 ---
-title: 'Lab: Real-Time Clickstream Anomaly Detection Kinesis Analytics'
+title: "Lab: Real-Time Clickstream Anomaly Detection Kinesis Analytics"
 weight: 320
 ---
 
@@ -16,37 +16,35 @@ Analyzing web log traffic to gain insights that drive business decisions has his
 - Environment Cleanup
 - Appendix: Anomaly Detection Scripts
 
-In the [Kinesis prelab setup](../310-pre-lab), you fulfilled the prerequisites for this lab. In this lab, you will create the following data pipeline.
+In the [Kinesis prelab setup](310-pre-lab.html), you fulfilled the prerequisites for this lab. In this lab, you will create the following data pipeline.
 ![](/static/300/images/16.png)
 
 ### Set up an Analytics Pipeline Application
 
-> Make sure you are in **US-EAST-1 (N. Virginia)** region
+::alert[Make sure you are in the appropriate AWS region.]{type="info"}
 
-1. Navigate to the [Amazon Kinesis](https://console.aws.amazon.com/kinesis/home?region=us-east-1#/dashboard) console.
+1. Navigate to the [Amazon Kinesis](https://console.aws.amazon.com/kinesis/home#/dashboard) console.
 2. Click Get started and then click **Create application** to create a Data Analytics application.
-3. On the Create application page, fill the fields as follows:
-
-- a. For Application name, type `anomaly-detection-application`.
-- b. For Description, type a description for your application.
-- c. Leave **“SQL”** selected as Default.
-  ![](/static/300/images/18.png)
+3. On the Create application page, fill the fields as follows:  
+    a. For Application name, enter `anomaly-detection-application`.  
+    b. For Description, type a description for your application.  
+    c. Leave **SQL** selected as Default.
+    ![](/static/300/images/18.png)
 
 4. Click **Create application**
 
 5. On the application page, click Connect streaming data.
    ![](/static/300/images/19.png)
-6. Select Choose source, and make the following selections:
-
-- a. For Source, choose Kinesis Firehose delivery stream.
-- b. For Kinesis Firehose delivery stream, choose `{stack-name}-FirehoseDeliveryStream-{some-random-string}` from the "Kinesis Firehose delivery stream" dropdown
-  ![](/static/300/images/20.png)
+6. Select Choose source, and make the following selections:  
+    a. For Source, choose Kinesis Firehose delivery stream.  
+    b. For Kinesis Firehose delivery stream, choose **{stack-name}-FirehoseDeliveryStream-{some-random-string}** from the "Kinesis Firehose delivery stream" dropdown
+    ![](/static/300/images/20.png)
 
 7. In the Record pre-processing with AWS Lambda section, choose **Disabled**.
 8. In the Access to chosen resources section, select **Choose from IAM roles that Kinesis Analytics can assume.**
 
 9. In the IAM role box, search for the following role:
-   `{stack-name}-CSEKinesisAnalyticsRole-{random string}`
+   **{stack-name}-CSEKinesisAnalyticsRole-{random string}**
 
 ::alert[Do not click “Discover schema” in this step yet.]{type="warning"}
 
@@ -56,32 +54,41 @@ In the [Kinesis prelab setup](../310-pre-lab), you fulfilled the prerequisites f
 
 You have set up the Kinesis Data Analytics application to receive data from a Kinesis Data Firehose and to use an IAM role from the pre-lab. However, you need to start sending some data to the Kinesis Data Firehose before you click Discover schema in your application.
 
-Navigate to the Amazon Kinesis Data Generator (Amazon KDG) which you setup in prelab and start sending the Schema Discovery Payload at 1 record per second by click on Send data button. Make sure to select the region “us-east-1”
+Navigate to the Amazon Kinesis Data Generator (Amazon KDG) which you setup in prelab and start sending the Schema Discovery Payload at 1 record per second by click on Send data button. Make sure to select the appropriate AWS region.
 ![](/static/300/images/kdg.gif)
 Now that your Kinesis Data Firehose is receiving data, you can continue configuring the Kinesis Data Analytics Application.
 
-10. Go back to the AWS console, Now click **Discover Schema**. (Make sure your KDG is sending data to your Kinesis Data Firehose. If KDG was idle for more than 10-15 minutes or if the schema discovery fails, then refresh the KDG page and sign-in again.)
-    ![](/static/300/images/23.png)
-    ![](/static/300/images/24.png)
-11. Click Save and continue. Your Kinesis Data Analytics Application is created with an input stream.
-    ![](/static/300/images/25.png)
-    Now, you can add some SQL queries to easily analyze the data that is being fed into the stream.
+10. Go back to the AWS console, Now click **Discover Schema**. (Make sure your KDG is sending data to your Kinesis Data Firehose. If KDG was idle for more than 10-15 minutes or if the schema discovery fails, then refresh the KDG page and sign-in again.)  
+
+  ![](/static/300/images/23.png)
+  ![](/static/300/images/24.png)
+
+11.  Click Save and continue. Your Kinesis Data Analytics Application is created with an input stream.  
+    
+  ![](/static/300/images/25.png)
+  Now, you can add some SQL queries to easily analyze the data that is being fed into the stream. 
+
 12. In the Real time analytics section, click Go to SQL editor.
-    ![](/static/300/images/26.png)
+
+  ![](/static/300/images/26.png)
+
 13. Click on “**Yes, start application**” to start your kinesis analytics application.
-    ![](/static/300/images/27.png)
-14. Copy the contents of the file named :link[anomaly_detection.sql]{href="/static/300/scripts/Kinesis_Anlaytics_anomaly_detection.sql" action=download} from your lab package and paste it into the SQL editor. (You can also find code in Appendix)
-    ![](/static/300/images/28.png)
-    ![](/static/300/images/29.png)
+
+  ![](/static/300/images/27.png)
+
+14. Copy the contents of the file named [anomaly_detection.sql](/static/300/scripts/Kinesis_Anlaytics_anomaly_detection.sql) from your lab package and paste it into the SQL editor. (You can also find code in Appendix)
+
+  ![](/static/300/images/28.png)
+  ![](/static/300/images/29.png)
+
 15. Click **Save and run SQL**. The analytics application starts and runs your SQL query. (You can find the SQL query in Appendix.)
 
-To learn more about the SQL logic, see the Analytics application section in the following blog post:
-https://aws.amazon.com/blogs/big-data/real-time-clickstream-anomaly-detection-with-amazon-kinesis-analytics/
+To learn more about the SQL logic, see the Analytics application section in the blog post titled [Real-time Clickstream Anomaly Detection with Amazon Kinesis Analytics](https://aws.amazon.com/blogs/big-data/real-time-clickstream-anomaly-detection-with-amazon-kinesis-analytics/).
 
-16. On the Source data tab, observe the input stream data named “SOURCE_SQL_STREAM_001”.
-    ![](/static/300/images/30.png)
-    If you click the **Real-time analytics** tab, you will notice multiple in-application streams You will populate data in these streams later in the lab.
-    ![](/static/300/images/31.png)
+16.  On the Source data tab, observe the input stream data named **SOURCE_SQL_STREAM_001**.
+  ![](/static/300/images/30.png)
+  If you click the **Real-time analytics** tab, you will notice multiple in-application streams You will populate data in these streams later in the lab.
+  ![](/static/300/images/31.png)
 
 ## Connect Lambda as destination to Data Analytics Pipeline
 
@@ -94,21 +101,18 @@ Now that the logic to detect anomalies is in the Kinesis Data Analytics, you mus
 2. For Destination, choose AWS Lambda function.
    ![](/static/300/images/32.png)
 
-3. In the Deliver records to AWS Lambda section, make the following selections:
+3. In the Deliver records to AWS Lambda section, make the following selections:  
+    a. For Lambda function, choose **CSEBeconAnomalyResponse**.  
+    b. For Lambda function version, choose **$LATEST**.
 
-- a. For Lambda function, choose **CSEBeconAnomalyResponse**.
-- b. For Lambda function version, choose **$LATEST**.
-
-4. In the In-application stream section, make the following selections:
-
-- a. Select Choose an existing in-application stream.
-- b. For In-application stream name, choose **DESTINATION_SQL_STREAM**
-- c. For Output format, choose: **JSON**.
-
-5. In "Access Permissions", make the following selections:
-
-- a. Select "Choose from IAM roles that Kinesis Analytics can assume"
-- b. Pick **{stack-name}-CSEKinesisAnalyticsRole-{random-string}**.
+4. In the In-application stream section, make the following selections:  
+    a. Select Choose an existing in-application stream.  
+    b. For In-application stream name, choose **DESTINATION_SQL_STREAM**  
+    c. For Output format, choose: **JSON**.  
+ 
+5. In "Access Permissions", make the following selections:  
+    a. Select "Choose from IAM roles that Kinesis Analytics can assume"  
+    b. Pick **{stack-name}-CSEKinesisAnalyticsRole-{random-string}**.  
 
 Your parameters should look like the following image. This configuration allows your Kinesis Data Analytics Application to invoke your anomaly Lambda function and notify you when any anomalies are detected.
 ![](/static/300/images/33.png)
@@ -116,9 +120,9 @@ Your parameters should look like the following image. This configuration allows 
 Now that all of the components are in place, you can test your analytics application.
 For this part of the lab, you will need to use your Kinesis Data Generator in five separate browser windows. There will be one window sending normal impression payload, one window sending normal click payload, and three windows sending extra click payload.
 
-1. Open your KDG in five separate browser windows and sign in as the same user.
+1. Open your KDG in *five separate browser windows* and sign in as the same user.
 
-::alert[Make sure to select the us-east-1 region. Do not accept the default region.]{type="warning"}
+::alert[Make sure to select the appropriate AWS region.]{type="warning"}
 
 2. In one of your browser windows, start sending the Impression payload at a rate of 1 record per second (keep this running).
 
@@ -141,32 +145,15 @@ Email Snapshot:
 SMS Snapshot:
 ![](/static/300/images/36.png)
 
-After you have completed the lab, click **Actions > Stop Application** to stop your application and avoid flood of SMS and e-mails messages.
+After you have completed the lab, click **Actions → Stop Application** to stop your application and avoid flood of SMS and e-mails messages.
 ![](/static/300/images/37.png)
-
-### Environment Cleanup
-
-To save on cost, it is required to dispose your environment which you have created during this lab. Make sure to empty S3 buckets from console before following below steps:
-
-1. In your AWS account, navigate to the CloudFormation console.
-
-2. On the CloudFormation console, select stack which you have created during pre-lab.
-
-3. Click on Action drop down and select delete stack as shown in below screenshot.
-
-![](/static/300/images/38.png)
-
-4. As you created, Kinesis Analytics application manually, so need to delete it by selecting your analytics application . Click on Action drop down and select delete application
-
-![](/static/300/images/39.png)
-
-5. Go the Cognito and delete the user pool that have been created.
 
 ### Appendix
 
-#### Anomaly Detection Scripts: anomaly_detection.sql
+Anomaly Detection Scripts: 
 
-```
+::::expand{header="Content of the script anomaly_detection.sql"}
+:::code{language=SQL showLineNumbers=false showCopyAction=true}
 CREATE OR REPLACE STREAM "CLICKSTREAM" (
    "CLICKCOUNT" DOUBLE
 );
@@ -224,4 +211,5 @@ TABLE (RANDOM_CUT_FOREST(
              1) --shingleSize (default)
 )
 WHERE ANOMALY_SCORE > 2;
-```
+:::
+::::

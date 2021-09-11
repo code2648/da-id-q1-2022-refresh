@@ -2,7 +2,7 @@ defaultLocaleCode: en
 localeCodes:
 - en
 params:
-  author: Sameer Goel - goesamee@
+  author: Melody Yang - meloyang@
   description: Data Engineering Day Workshop
   disableAssetsBusting: true
   disableBreadcrumb: false
@@ -11,6 +11,6 @@ params:
   disableNextPrev: false
   disableSearch: false
   disableShortcutsTitle: true
-  editURL: https://code.amazon.com/packages/Aws-workshop-template/blobs/master/--/workshop/content/
+  showCopyAction: true
   themeVariant: aws
 version: 2.0

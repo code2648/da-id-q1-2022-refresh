@@ -11,10 +11,12 @@ This lab will give you an understanding of the AWS Glue – a fully managed data
 
 ### Prerequisites:
 
-The DMS Lab is a prerequisite for this lab.
+::alert[Ingestion with DMS Lab (any options) is a prerequisite for this lab.]{type="info"}
 
-Below is a list of the steps for this lab:
+### Summary
+
+In this lab you will be completing the following tasks. You can choose to complete only **Data Validation and ETL** to move to next lab where tables can be queried using Amazon Athena and Visualize with Amazon Quciksight
 
 ::children
 
-Note: If you want to dive-deep and Glue DataBrew please refer [Bonus DataBrew lab](../1310-databrew-pre-lab).
+::alert[If you want to dive-deep and Glue DataBrew please refer [Bonus DataBrew lab](/1300)]{type="info"}

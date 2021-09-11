@@ -1,5 +1,5 @@
 ---
-title: 'Lab: Athena and QuickSight'
+title: 'Lab: Query and Visualize'
 weight: 800
 ---
 

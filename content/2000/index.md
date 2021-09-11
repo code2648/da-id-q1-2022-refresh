@@ -23,15 +23,15 @@ Thanks a lot for joining the workshop today! We hope you learned something and g
 
 **Cleanup: To avoid unexpected chargers to your account, make sure you clean up your account**.
 
-To delete cloudformation using AWS Management Console-> Login to AWS Management Console and navigate Services->Management & Governance->CloudFormation.
+To delete cloudformation using AWS Management Console-> Login to AWS Management Console and navigate Services → Management & Governance → CloudFormation.
 
 or
 
-Navigate to AWS [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks?filter=active)
+Navigate to AWS [CloudFormation](https://console.aws.amazon.com/cloudformation/home?#/stacks?filter=active)
 
-To delete cloudformation using AWS Management Console-> Login to AWS Management Console and navigate Services->Management & Governance->CloudFormation.
+To delete cloudformation using AWS Management Console → Login to AWS Management Console and navigate Services → Management & Governance → CloudFormation. Delete the stack from latest to oldest.
 
-::alert[Login to Amazon S3 console to delete the S3 bucket used for this labs.]{type="warning"}
+::alert[After deleting the CloudFormation stacks if you find any remaining S3 buckets. Remeber to delete those S3 buckets.]{type="warning"}
 
 #### Follow Up
 

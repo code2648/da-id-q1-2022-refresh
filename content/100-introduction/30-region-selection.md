@@ -9,7 +9,7 @@ Only complete this section if you are at an AWS hosted event (such as re\:Invent
 
 ### Login to AWS Workshop Portal
 
-This workshop creates an AWS account. You will need the **Participant Hash** provided upon entry, and your email address to track your unique session.
+This workshop creates an AWS account. You will need the **Event Hash** provided upon entry, and your email address to track your unique session.
 
 Connect to the portal by clicking the button or browsing to [https://dashboard.eventengine.run/](https://dashboard.eventengine.run/). The following screen shows up.
 

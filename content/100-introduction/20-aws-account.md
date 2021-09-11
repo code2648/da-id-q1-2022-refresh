@@ -19,29 +19,26 @@ If you don't have an AWS account yet, and you want to repeat this workshop for y
 
 In case you want to use your own account now or later, and you don't yet have an IAM user with administrator privileges, you need to create one.
 
-1. If you don't already have an AWS account with Administrator access: [create
-one now by clicking here](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc)
+1. If you don't already have an AWS account with Administrator access: [create one now by clicking here](https://aws.amazon.com/free)
 
 ***See below video for AWS account setup***
 
 ::video{id="WviHsoz8yHk"}
 
-1. Once you have an AWS account, create a new IAM user for this workshop
-with administrator access to the AWS account:
+2. Once you have an AWS account, create a new IAM user for this workshop with administrator access to the AWS account:
 [Create a new IAM user to use for the workshop](https://console.aws.amazon.com/iam/home?#/users$new)
 
-1. Enter the user details: and select Access Type as Programmatic access
+3. Enter the user details: and select Access Type as Programmatic access
 
 ![IAM](/static/100-introduction/images/iam-1-create-user.png "IAM")
 
-1. Attach the AdministratorAccess IAM Policy, choose Administrator access or fine-grained access depending 
-upon the Amazon services used for this lab. For this lab you can choose Administrator access-->Click Next -->Ignore Tags--> Next Review
+4. Attach the AdministratorAccess IAM Policy, choose Administrator access or fine-grained access depending upon the Amazon services used for this lab. For this lab you can choose Administrator access → Click Next → Ignore Tags → Next Review
 ![IAM](/static/100-introduction/images/iam-2-attach-policy.png "IAM")
 
-1. Click to create the new user:
+5. Click to create the new user:
 ![IAM](/static/100-introduction/images/iam-3-create-user.png "IAM")
 
-1. Download the csv file for Access and Secret Keys:
+6. Download the csv file for Access and Secret Keys:
 ![IAM](/static/100-introduction/images/iam-4-save-url.png "IAM")
 
 **To apply Promo codes or AWS Educate credits to your account see the following video**
