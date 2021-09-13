@@ -24,9 +24,9 @@ In today's lab, you will copy the data from a centralized S3 bucket to your AWS 
 
 #### Open AWS CloudShell
 
-Open [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home?region=us-east-1) in us-east-1 (N. Virginia) region. It will open a terminal window in the browser. (If there is a pop-up, close it)
+Open [AWS CloudShell](https://console.aws.amazon.com/cloudshell/home?region=us-east-1). It will open a terminal window in the browser. (If there is a pop-up, close it)
 
-::alert[We will be launching CloudShell in us-east-1 (N. Virginia) region irrespective of where you are running this whole workshop. By executing the following command you will be copying the data to the correct S3 bucket in whatever region it belongs (It can also be across region)]{type="info"}
+::alert[CloudShell is available in specific regions and you shall find the supported regions in [AWS Regional Services List](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). By executing the following command you will be copying the data to the correct S3 bucket in whatever region it belongs (It can also be across region)]{type="info"}
 
 #### Copy Data across from staging Amazon S3 bucket to your S3 bucket
 

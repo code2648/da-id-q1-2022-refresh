@@ -7,14 +7,14 @@ weight: 440
 
 Labs in the Data Engineering workshop are to be completed in sequence. This lab is designed to automate the Data Lake hydration with AWS Database Migration Service (AWS DMS), so we can fast forward to the following Glue lab. 
 
-If you prefer to get hands-on with AWS DMS service, please choose [Option 1: DMS Main Lab](/static/400/401.html). 
+If you prefer to get hands-on with AWS DMS service, please choose [Option 1: DMS Main Lab](/400/401). 
 
 
 ### Pre-requisite
 
 ::alert[**Student PreLab Setup** is not required. Otherwise, duplicate S3 buckets and IAM roles will appear in your lab environment. If that happens, please use the resources with a name prefix ***auto-dmslab-***.]{type="warning"}
 
-- [**Instructor Prelab Setup**](/400/401/410-pre-lab-1) - is completed and the source RDS database is fully populated.
+- [**Instructor Prelab (not requried in AWS event)**](/400/401/410-pre-lab-1) - is completed and the source RDS database is fully populated.
 - **RDS Database Server Name** - If you are in an AWS hosted event, you can get this value from Event Engine Team Dashboard. Otherwise, check the **Outputs** tab on your [CloudFormation](https://console.aws.amazon.com/cloudformation/home) Console, note down the RDS Server value named `DMSInstanceEndpoint`.
 ![](/static/400/images/78.png)
 
@@ -57,5 +57,5 @@ Note whether these role are present or not. In this example screenshot the cloud
 4. The stack launch may take 5-6 minutes. Wait until your stack status advances to "CREATE_COMPLETE".
 	![](/static/400/images/81.png) 
 
-5. At this point, the source data has been fully loaded from RDS database to your S3 bucket via DMS. Go to [AWS DMS console](https://console.aws.amazon.com/dms/v2/home#tasks), you should see two **Database migration tasks** are 100% completed. If not, please wait until they are finished, then proceed to the [Glue lab](../600.html)
+5. At this point, the source data has been fully loaded from RDS database to your S3 bucket via DMS. Go to [AWS DMS console](https://console.aws.amazon.com/dms/v2/home#tasks), you should see two **Database migration tasks** are 100% completed. If not, please wait until they are finished, then proceed to the [Glue lab](/600)
 	![](/static/400/images/82.png) 

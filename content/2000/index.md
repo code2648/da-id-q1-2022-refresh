@@ -41,4 +41,4 @@ For any follow-ups on the topics we discussed today, but also for any other AWS-
 
 We're very much interested in honest feedback so that we can continuously improve our performance.
 
-::alert[For any issue encountered, please create issue [here](https://github.com/aws-samples/data-engineering-for-aws-immersion-day) on github and our team will try to reasolve them as early as possible.]{type="info"}
+::alert[For any issue encountered, please create issue [here](https://github.com/aws-samples/data-engineering-for-aws-immersion-day) on github and our team will try to resolve them at the earliest.]{type="info"}

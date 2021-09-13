@@ -51,4 +51,4 @@ Labs are also available in GitHub - https://github.com/aws-samples/data-engineer
 In case you aren't able to launch the quick create stack, you can download the [template file](https://s3.amazonaws.com/aws-dataengineering-day.workshop.aws/DMSlab_student_CFN.yaml) and then follow the steps to [create stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) manually.
 
 You have successfully completed the student prelab and setup all pre-requisite required to run the rest of the workshop.
-Please proceed to the next lab [Data ingestion with DMS](/static/400/430-main-lab.html).
+Please proceed to the next lab [Data ingestion with DMS](/400/401/430-main-lab).

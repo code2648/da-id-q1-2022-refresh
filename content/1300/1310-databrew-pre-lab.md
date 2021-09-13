@@ -1,5 +1,5 @@
 ---
-title: DataBrew Pre-Lab Setup
+title: DataBrew Pre-Lab (not required in AWS event)
 weight: 1310
 ---
 

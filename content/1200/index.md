@@ -27,4 +27,5 @@ In this lab you will be completing the following tasks:
 6. Grant fine grain access controls to Data Lake user
 7. Verify data permissions using Athena
 
-### See demo video [here](https://s3.us-east-1.amazonaws.com/aws-dataengineering-day.workshop.aws/videos/demo.mp4)
+### Check demo video below
+::video{id=-SvLSuhbS1w }
