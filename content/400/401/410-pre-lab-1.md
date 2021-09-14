@@ -158,7 +158,7 @@ Navigate to [Lambda console](https://console.aws.amazon.com/lambda/home#/functio
 ![](/static/400/images/14.png)
 
 1. Click on the function and scroll down. You will see the code for this function. Copy the below query and paste it in the placeholder (value) of this code line:
-   “ var query_cmd= ”<insert-SQL-query-here>” ”
+   “ var query_cmd= ”\<insert-SQL-query-here\>” ”
 
 2. Run this query first: `select dms_sample.generateticketactivity(10)`;
     ![](/static/400/images/15.png)
