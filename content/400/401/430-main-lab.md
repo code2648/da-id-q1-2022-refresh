@@ -122,7 +122,7 @@ Before start, make sure you have the following values handy (on your event dashb
 
    - For Endpoint type, select **Target endpoint**.
    - For Endpoint identifier, type an easily recognized name such as `s3-target-endpoint`
-   - For Target engine, choose **s3**.
+   - For Target engine, choose **Amazon S3**.
    - For Service access role ARN, paste the DMSLabRoleS3 ARN number noted earlier
    - For Bucket name, paste the S3 Bucket Name noted earlier
    - For Bucket folder, type `tickets`.
