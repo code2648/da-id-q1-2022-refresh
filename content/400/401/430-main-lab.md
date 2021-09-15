@@ -93,8 +93,8 @@ Please proceed to create your endpoints, without waiting for the step above.
       Or if you ran instructor lab then take recorded endpoint from the instructor [pre-lab](https://console.aws.amazon.com/cloudformation/home#/stacks?filteringText=&filteringStatus=active&viewNested=true&hideStacks=false) (e.g. “dmslabinstance.ccla1oozkrry.us-east-1.rds.amazonaws.com”).
    - For Port, enter `5432`.
    - For SSL mode, choose `none`.
-   - For User name, type `master`.
-   - For Password, type `master123`.
+   - For User name, type `adminuser`.
+   - For Password, type `admin123`.
    - For Database name, type `sportstickets`.
 
 _(These credentials were defined directly in the CFN template.)_
@@ -172,13 +172,17 @@ Your S3 bucket name will look like below : **BucketName/bucket_folder_name/schem
 In our lab example this becomes: */dmslab-student-dmslabs3bucket-woti4bf73cw3/tickets/dms_sample* with a separate path for each table_name)
 ![](/static/400/images/53.png)
 
-7. Download one of the files:  
-   a. Select the check box next to the file name and click **Download** in the pop-up window.  
-   b. Click **Save File**.  
-   c. Open the file.  
+7. Navigate to one of the files and review it using [S3 Select](https://docs.aws.amazon.com/AmazonS3/latest/userguide/selecting-content-from-objects.html):
+   a. Navigate in to the directory named **player** and select the check box next to the file name.  
+   b. Click the **Actions** dropdown button and choose **Query with S3 Select**.  
+   ![](/static/400/images/53-1.png)
+   c. In the Query with S3 Select page, leave the default value for *Input Settings* and *SQL Query* and click **Run SQL query**.   
+   ![](/static/400/images/53-2.png) 
+   d. It will execute the specified SQL query and return the first 5 lines from the CSV file.  
+   ![](/static/400/images/53-3.png)
    
 You will notice that the file contains the column headers in the first row as requested by the **“addColumnName=true”** connection attribute we included when we created the s3 target endpoint. Note that column names are included in the file in the first row.
-![](/static/400/images/54.png)
+
 Explore the objects in the S3 directory further.
 
 ### Create the CDC endpoint to replicate ongoing changes (Optional)
@@ -194,7 +198,7 @@ As of now we are enabling only one schema replication for CDC. Copy the followin
 2. Click Create endpoint.
    - For Endpoint type, select **Target**.
    - For Endpoint identifier, type an easily recognized name e.g. `rds-cdc-endpoint`
-   - For Target engine, choose **s3**.
+   - For Target engine, choose **Amazon S3**.
    - For Service Access Role ARN, paste the ARN value that you noted earlier
    - For Bucket name, type the name of the s3 bucket you noted down earlier
    - For Bucket folder, type **cdc**.
@@ -234,7 +238,7 @@ As of now we are enabling only one schema replication for CDC. Copy the followin
 
 Once complete, the console displays 100% complete.
 
-4. Your instructor will generate CDC activity which above migration task will capture. If you ran the instructor setup on your own, then make sure to follow **[Generate the CDC Data](/static/400/410-pre-lab-1.html#generate-and-replicate-the-cdc-data-optional)** section from instructor lab.
+4. Your instructor will generate CDC activity which above migration task will capture. If you ran the instructor setup on your own, then make sure to follow **[Generate the CDC Data(/400/401/410-pre-lab-1\#generate-and-replicate-the-cdc-data-\(optional\))** section from instructor lab.
 
 You may need to wait 5 to 10 minutes for CDC data to first reflect in your RDS postgres database and then picked up by DMS CDC migration task.
 
@@ -252,18 +256,19 @@ You may need to wait 5 to 10 minutes for CDC data to first reflect in your RDS p
 
    ![](/static/400/images/65.png)
 
-7. Download one of the files:
+7. Navigate to one of the files and review it using [S3 Select](https://docs.aws.amazon.com/AmazonS3/latest/userguide/selecting-content-from-objects.html):
+   a. Navigate in to the directory named **sporting_event_ticket** and select the check box next to the file name.  
+   b. Click the **Actions** dropdown button and choose **Query with S3 Select**.  
+   ![](/static/400/images/65-1.png)
+   c. In the Query with S3 Select page, leave the default value for *Input Settings* and *SQL Query* and click **Run SQL query**.   
+   ![](/static/400/images/65-2.png) 
+   d. It will execute the specified SQL query and return the first 5 lines from the CSV file.  
+   ![](/static/400/images/65-3.png)
 
-   - Select the check box next to the object name and click Download in the pop-up window.
-   - Click Save File.
-   - Open the file.  
   You will notice that the file contains the column headers in the first row as requested by the “addColumnName=true” connection attribute we included when we created the s3 target endpoint.
 
-   ![](/static/400/images/67.png)
-
-Note that file name has date time - 20190529-230604667.csv
+> Note that file name has date time - 20210915-085904798.csv
 
 You can see the header is included and the operation column is added at the beginning of each row. The file below shows updates (U) to the table along with the values after the update. Inserts (I) show data after the insert and Deletes (D) show data before the delete.
-![](/static/400/images/68.png)
 
 Explore the objects in the S3 directory further.

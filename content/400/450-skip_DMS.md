@@ -51,21 +51,18 @@ aws s3 cp --recursive --copy-props none s3://aws-dataengineering-day.workshop.aw
     [/&lt;**BucketName**&gt;/tickets/dms_sample](https://s3.console.aws.amazon.com/s3/home)
     with a separate path for each table_name
 
-    ![](/static/400/images/image98.png)
+    ![](/static/400/images/53.png)
 
-4.  Download one of the files:
-
-    - Select the check box next to the object name and click Download in the pop-up window.
-
-    - Click **Save File**.  
-
-    - Open the file.
-
-    ![](/static/400/images/image99.jpeg)
-
-**Note that column names are included in the file in the first row.**
-
-![](/static/400/images/image100.png)
+4.  Navigate to one of the files and review it using [S3 Select](https://docs.aws.amazon.com/AmazonS3/latest/userguide/selecting-content-from-objects.html):
+   a. Navigate in to the directory named **player** and select the check box next to the file name.  
+   b. Click the **Actions** dropdown button and choose **Query with S3 Select**.  
+   ![](/static/400/images/53-1.png)
+   c. In the Query with S3 Select page, leave the default value for *Input Settings* and *SQL Query* and click **Run SQL query**.   
+   ![](/static/400/images/53-2.png) 
+   d. It will execute the specified SQL query and return the first 5 lines from the CSV file.  
+   ![](/static/400/images/53-3.png)
+   
+> Note that column names are included in the file in the first row.
 
 Explore the objects in the S3 directory further.
 

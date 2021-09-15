@@ -40,7 +40,7 @@ If you are in an AWS Event use Event Engine Team Dashboard, if you are in your o
 |Application Name|`AthenaJdbcConnector`|
 |SecretNamePrefix|`AthenaFed_`|
 |SpillBucket|Get the **BucketName** from EventEngine Team Dashboard|
-|DefaultConnectionString|`postgres://jdbc:postgresql://<DATABASE_ENDPOINT>:5432/sportstickets?user=master&password=master123` **→** replace **\<DATABASE_EDNPOINT\>** with the correct database endpoint (e.g. dmslabinstance.abcdshic87yz.eu-west-1.rds.amazonaws.com)|
+|DefaultConnectionString|`postgres://jdbc:postgresql://<DATABASE_ENDPOINT>:5432/sportstickets?user=adminuser&password=admin123` **→** replace **\<DATABASE_EDNPOINT\>** with the correct database endpoint (e.g. dmslabinstance.abcdshic87yz.eu-west-1.rds.amazonaws.com)|
 |DisableSpillEncryption|`false`|
 |LambdaFunctionName|`postgresqlconnector`|
 |LambdaMemory|`3008`|

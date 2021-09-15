@@ -383,7 +383,7 @@ We will utilize the values from the outputs wherever required in the following s
 3. Next, Open the copied link in a different browser or in private window, select IAM user and login with following credential::
     - **AccountID**: This should be pre-filled
     - **IAM User name**: &lt;value copied for **BusinessAnalystUser**&gt;
-    - Password: **Master123!**
+    - Password: **Admin123!**
     - Make sure the region is the same as where you are running the whole of this workshop
 
 4. From new BusinessAnalystUser user, Navigate to Athena Console. You will notice that you can see your workgroup designated as “workgroupA” and you can also view table: **sporting_event_info** as shown below:
@@ -412,7 +412,7 @@ We will utilize the values from the outputs wherever required in the following s
 12. Now, login as workgroup_manager_user.
     - Account ID or Alias: This should be populated, if not use the IAM URL you copied earlier in Step 2.
     - IAM User Name: &lt;Copy the **WorkgroupManagerUser** IAM User Name from Event Engine Team Dashboard or CloudFormation Outputs tab&gt; (for e.g: in this lab: dmslab-student-WorkgroupManagerUser-KLF9GDANNTVZ)
-    - Password: Master123!  
+    - Password: Admin123!  
     
    This user has access to workgroupA and workgroupB for management purposes.  
 

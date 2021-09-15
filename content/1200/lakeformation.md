@@ -41,7 +41,7 @@ When you create a workflow, you must assign it an AWS Identity and Access Manage
     - If you are running the lab in an AWS hosted event, get the RDS_Server_Name from the Event Engine Team Dashboard.
     - If you are running the lab outside of AWS event, find the **DMSInstanceEndpoint** value on the Cloudformation stack dmslab-instructor Outputs tab.
     
-8. Enter **master** as username, **master123** as **Password**  
+8. Enter **adminuser** as username, **admin123** as **Password**  
 9. For **VPC**, select the pre-created VPC ending with **dmslstudv1**  
 10. For **Subnet,** choose one of the existing **private_subnet**  
 11. Select the **security group** with **sgdefault** in the name.  
@@ -165,7 +165,7 @@ Before we start querying the data, let us create an IAM User **datalake_user** a
 
 1. Navigate to **[IAM Console](https://console.aws.amazon.com/iam/home#/users)** and click on **Add User**.   
 ![](/static/1200/media/image35.png)
-2. Create a user named **datalake_user** and give it a password: `Master123!`   
+2. Create a user named **datalake_user** and give it a password: `Admin123!`   
 ![](/static/1200/media/image36.jpg)
 3. Next click on **Permissions**   
 4. Choose **Attach existing policies directly** and search for **AthenaFullAccess**   
@@ -216,7 +216,7 @@ Use the following json snippet replacing **\<your_dmslabs3bucket_unique_name\>**
 Using Athena, let us now explore the data set as the **datalake_user**.
 
 1. Open the sign-in URL copied in earlier step in a different browser or private window.  
-2. Enter the IAM user `datalake_user`, using `Master123!`as password.
+2. Enter the IAM user `datalake_user`, using `Admin123!`as password.
 ![](/static/1200/media/image45_1.JPG)
     - Make sure to change the region to the appropriate region where all resources are deployed
     - Navigate to **Athena console**

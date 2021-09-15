@@ -114,7 +114,7 @@ You can follow below instruction to setup SQL Workbench to access your Postgres 
 https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/
 
 Database Name: `sportstickets`
-Database credentials: master/master123
+Database credentials: adminuser/admin123
 
 In SQL Workbench:
 Run following query to find out all Schema and table created.
