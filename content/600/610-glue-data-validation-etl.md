@@ -160,7 +160,7 @@ Glue will create the new folder automatically, based on your input of the full f
 7. Select the **ApplyMapping** node. In the Transform panel on the right and change the data type of **id** column to `double` in the dropdown.
     ![](/static/600/media/image30.png)
 
-8. Select the **Data target - S3 bucket** node at the bottom of the graph, and change the Format to **Parquet** in the dropdown.
+8. Select the **Data target - S3 bucket** node at the bottom of the graph, and change the Format to **Parquet** in the dropdown. Under *Compression Type*, select **Uncompressed** from the dropdown.
 
 9. Under “S3 Target Location”, select “**Browse S3**” browse to the “mod-xxx-dmslabs3bucket-xxx” bucket, select “**tickets**” item and press
     “**Choose**”.![](/static/600/media/image31.png)
@@ -206,8 +206,9 @@ Create a **Glue-Lab-SportLocationParquet** job with the following attributes:
 |                                 | Table                  | `sport_location`                       |
 | “Transform - ApplyMapping” node | Schema transformations | None                                  |
 | “Data target - S3 bucket” node  | Format                 | Parquet                               |
+|                                 | Compression Type       | Uncompressed                          |
 |                                 | S3 target path         | `tickets/dms_parquet/sport_location/` |
-| “Job details tab”               | Job Name               | `Glue-Lab-SportLocationParquet`        |
+| “Job details tab”               | Job Name   Compression Type            | `Glue-Lab-SportLocationParquet`  |
 |                                 | IAM Role               | xxx-GlueLabRole-xxx                   |
 |                                 | Job bookmark           | Disable                               |
 
@@ -222,6 +223,7 @@ Create a **Glue-Lab-SportingEventParquet** job with the following attributes:
 | “Transform - ApplyMapping” node | Schema tranformations | column “start_date_time” =&gt; TIMESTAMP |
 |                                 |                       | column “start_date” =&gt; DATE            |
 | “Data target - S3 bucket” node  | Format                | Parquet                                    |
+|                                 | Compression Type       | Uncompressed                          |
 |                                 | S3 target path        | `tickets/dms_parquet/sporting_event/`      |
 | “Job details tab”               | Job Name              | `Glue-Lab-SportingEventParquet`             |
 |                                 | IAM Role              | xxx-GlueLabRole-xxx                        |
@@ -239,6 +241,7 @@ Create a **Glue-Lab-SportingEventTicketParquet** job with the following attribut
 |                                 |                       | column “sporting_event_id” =&gt; DOUBLE     |
 |                                 |                       | column “ticketholder_id” =&gt; DOUBLE        |
 | “Data target - S3 bucket” node  | Format                | Parquet                                       |
+|                                 | Compression Type       | Uncompressed                          |
 |                                 | S3 target path        | `tickets/dms_parquet/sporting_event_ticket/` |
 | “Job details tab”               | Job Name              | `Glue-Lab-SportingEventTicketParquet`           |
 |                                 | IAM Role              | xxx-GlueLabRole-xxx                           |
@@ -254,6 +257,7 @@ Create a **Glue-Lab-PersonParquet** job with the following attributes:
 |                                 | Table                 | `person`                       |
 | “Transform - ApplyMapping” node | Schema tranformations | column “id” =&gt; DOUBLE     |
 | “Data target - S3 bucket” node  | Format                | Parquet                      |
+|                                 | Compression Type       | Uncompressed                          |
 |                                 | S3 target path        | `tickets/dms_parquet/person/` |
 | “Job details tab”               | Job Name              | `Glue-Lab-PersonParquet`       |
 |                                 | IAM Role              | xxx-GlueLabRole-xxx          |
