@@ -76,7 +76,7 @@ Now that your Kinesis Data Firehose is receiving data, you can continue configur
 
   ![](/static/300/images/27.png)
 
-14. Copy the contents of the file named [anomaly_detection.sql](/static/300/scripts/Kinesis_Anlaytics_anomaly_detection.sql) from your lab package and paste it into the SQL editor. (You can also find code in Appendix)
+14. Copy the contents of the file named :link[anomaly_detection.sql]{href="/static/300/scripts/Kinesis_Anlaytics_anomaly_detection.sql" action=download} from your lab package and paste it into the SQL editor. (You can also find code in Appendix)
 
   ![](/static/300/images/28.png)
   ![](/static/300/images/29.png)
