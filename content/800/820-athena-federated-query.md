@@ -57,13 +57,13 @@ If you are in an AWS Event use Event Engine Team Dashboard, if you are in your o
 7. Once the function is deployed. Select the function and change handler string in runtime setting as below:
 
 :::code{language=java showLineNumbers=false showCopyAction=true}
-com.amazonaws.connectors.athena.jdbc.postgresql.PostGreSqlCompositeHandler
+com.amazonaws.athena.connectors.jdbc.postgresql.PostGreSqlCompositeHandler
 :::
 
 ![](/static/800/820media/image7.png)
 ![](/static/800/820media/image8.png)
 
-8. Verify that the new data source is visible
+1. Verify that the new data source is visible
 
 ![](/static/800/820media/image9.png)
 
