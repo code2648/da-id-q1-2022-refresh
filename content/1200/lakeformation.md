@@ -191,7 +191,7 @@ Use the following json snippet replacing **\<your_dmslabs3bucket_unique_name\>**
         "s3:Get*", 
         "s3:List*" 
         ], 
-        "Resource": [ "arn:aws:s3:::<your_dmslabs3bucket_unique_name\>/*" ] 
+        "Resource": [ "arn:aws:s3:::<your_dmslabs3bucket_unique_name>/*" ] 
         } 
     ] 
 :::
