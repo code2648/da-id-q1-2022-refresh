@@ -180,7 +180,7 @@ Before moving on to next step, note the rowcount.
 Ask your instructor generate more CDC data at source database, if you ran the instructor setup on your own, then make sure to follow **Generate the CDC Data** section from instructor prelab.
 
 1.  To make sure the new data has been successfully generated, check the S3 bucket for cdc data, you will see new files generated. Note the time when the files were generated.
-   ![](/static/600/media/image76.png)
+   ![](/static/600/media/image76-1.png)
 2.  Rerun the Glue job **Glue-Lab-TicketHistory-Parquet-with-bookmark** you created in Step 2
 3.  Go to the Athena Console, and rerun the following query to notice the increase in row count:
  

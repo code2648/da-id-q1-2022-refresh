@@ -247,6 +247,16 @@ Create a **Glue-Lab-SportingEventTicketParquet** job with the following attribut
 |                                 | IAM Role              | xxx-GlueLabRole-xxx                           |
 |                                 | Job bookmark          | Disable                                       |
 
+::::expand{header="Troubleshoot: Glue-Lab-SportingEventTicketParquet job failing with error 'Unsupported case of DataType'"}
+Are you getting the error similar to below.
+:::code{language=java showLineNumbers=false}
+An error occurred while calling o115.pyWriteDynamicFrame. Unsupported case of DataType: com.amazonaws.services.glue.schema.types.LongType@4f722276 and DynamicNode: stringnode.
+:::
+
+This might be mostly due to not having CDC data written to different S3 folder/prefix in your CDC DMS task. Check Step 2 in [Create the CDC endpoint to replicate ongoing changes (Optional)](/400/401/430-main-lab#create-the-cdc-endpoint-to-replicate-ongoing-changes-(optional)) section of DMS Lab and make sure you are using correct folder name in your CDC Target endpoint (`rds-cdc-endpoint`).
+
+::::
+
 ***4. Person:***
 
 Create a **Glue-Lab-PersonParquet** job with the following attributes:

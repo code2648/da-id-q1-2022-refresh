@@ -202,6 +202,7 @@ As of now we are enabling only one schema replication for CDC. Copy the followin
    - For Service Access Role ARN, paste the ARN value that you noted earlier
    - For Bucket name, type the name of the s3 bucket you noted down earlier
    - For Bucket folder, type **cdc**.
+     ::alert[Make sure you enter folder name as **cdc**. If you don't use different folder name than during fully copy, your Glue ETL Lab will fail while running the job.]{type="warning"}
      ![](/static/400/images/56.png)
    - Click Endpoint-specific settings to expand the section.
    - In the Extra connection attributes box, type `addColumnName=true`. This attribute includes the column names in the files in the S3 bucket.
