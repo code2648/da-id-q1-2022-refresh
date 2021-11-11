@@ -22,18 +22,26 @@ If you are in an AWS Event use Event Engine Team Dashboard, if you are in your o
 
 1. Create an S3 endpoint to allow S3 access to Athena connecter Lambda, follow steps mentioned [here](https://docs.aws.amazon.com/glue/latest/dg/vpc-endpoints-s3.html) to create S3 endpoint. Make sure to use the same subnet which will be used for Lambda function in next step. This will put a route entry in the subnet routing table to reach to S3 via AWS backbone.
 
-2. Choose **"Connect data source"** on the Query Editor
+2. In the Athena console, click the  hamburger icon (3 horizontal lines) on the top left corner and choose **"Data sources"**.
 
-![](/static/800/820media/image2.png)
+![](/static/800/820media/image2-1.png)
+![](/static/800/820media/image2-2.png)
 
-3. Select the data source as **PostgreSQL** to which you want to connect, as shown in the following screenshot. Click **Next** 
+3. In Data Sources page, choose **Connect data source** button
+
+![](/static/800/820media/image2-3.png)
+
+4. Select the data source as **PostgreSQL** to which you want to connect, as shown in the following screenshot.
 ![](/static/800/820media/image3.png)
 
-4. Click on ‘**Configure new function**’ and give a catalog name as `Postgres_DB`. And select ‘Configure new lambda function’
+5. Under *Data source details*: for **Data source name**, enter `Postgres_DB`
+![](/static/800/820media/image3-1.png)
+
+6. Under *Lambda function*, Choose ‘**Create a new function**’ and click **Create a new Lambda function in AWS Lambda button** which will open a new tab/window to AWS Lambda Console.
 
 ![](/static/800/820media/image4.png)
 
-5. Fill the application setting fields as per below snapshot and click deploy.
+7. Fill the application setting fields as per below snapshot and click deploy.
 
 |Field|Value|
 |---|---|
@@ -51,10 +59,10 @@ If you are in an AWS Event use Event Engine Team Dashboard, if you are in your o
 
 ![](/static/800/820media/image5.png)
 
-6. Wait for the function to deploy. Go back to the Athena window and select the newly deployed Lambda function, for Catalog Name enter `Postgres_DB` and click ‘Connect’
+8. Wait for the function to deploy. Go back to the Athena window, click the refresh button next to **Choose or enter a Lambda function**. Select the newly deployed Lambda function and choose ‘Connect data source’
 ![](/static/800/820media/image6.png)
 
-7. Once the function is deployed. Select the function and change handler string in runtime setting as below:
+9. Once the function is deployed. Select the function and change handler string in runtime setting as below:
 
 :::code{language=java showLineNumbers=false showCopyAction=true}
 com.amazonaws.athena.connectors.jdbc.postgresql.PostGreSqlCompositeHandler
@@ -63,15 +71,15 @@ com.amazonaws.athena.connectors.jdbc.postgresql.PostGreSqlCompositeHandler
 ![](/static/800/820media/image7.png)
 ![](/static/800/820media/image8.png)
 
-1. Verify that the new data source is visible
+10. Verify that the new data source is visible
 
 ![](/static/800/820media/image9.png)
 
-9. Refresh the query editor and check the new datasource is visible with corresponding database.
+11.  Navigate back to the [query editor](https://console.aws.amazon.com/athena/home#/query-editor) and choose the new datasource and review whether it's displaying the corresponding database (dms_sample).
 
 ![](/static/800/820media/image10.png)
 
-10. For this example, we will be using “**sport_location**” table from Postgres data source and “**parquet_sporting_event**” table from data lake.
+12. For this example, we will be using “**sport_location**” table from Postgres data source and “**parquet_sporting_event**” table from data lake.
 
 Copy below query and paste in the query editor:
 
