@@ -111,7 +111,7 @@ For this part of the lab, you will need to use your Kinesis Data Generator in fi
 4. On your last three browser windows, start sending the Click payload at a rate of 1 record per second for a period of 20 seconds.
    \*\*If you did not receive an anomaly email, open another KDG window and send additional concurrent Click payloads. Make sure to not allow these functions to run for more than 10 to 20 seconds at a time. This could cause AWS Lambda to send you multiple emails due to the number of anomalies you are creating.
 
-You can monitor anomalies on the **Real-time analytics tab** in the **DESTINATION_SQL_STREAM** table. If an anomaly is detected, it displays in that table.
+You can monitor anomalies on the **Output tab** if you choose Configure under Real-time analytics. Choose the **DESTINATION_SQL_STREAM** table. If an anomaly is detected, it displays in that table.
 
 ![](/static/300/images/34.png)
 
