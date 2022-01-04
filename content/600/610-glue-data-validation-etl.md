@@ -187,6 +187,10 @@ Glue will create the new folder automatically, based on your input of the full f
 18. Scroll down to the **Job runs** list to verify that the ETL job has completed successfully. This should take about 1 minute to complete.
     ![](/static/600/media/image35.png)
 
+::alert[If the Glue job has failed with an S3 AccessDenied exception such as in the sample screenshot below, check that the job's S3 Target Location is referring to the xxx-dmslabs3bucket-xxx S3 bucket in your AWS lab account. If the S3 Target Location is not showing the correct S3 bucket, update this with the correct S3 bucket, save and re-run the job.]{type="info"}
+
+![](/static/600/media/image85.png)
+
 19. We need to repeat this process for an additional 4 jobs, to transform the **sport_location, sporting_event, sporting_event_ticket** and **person** tables.
 
 During this process, we will need to modify different column data types. We can either repeat the process above for each table, or we can clone the first job and update the details. The steps below describe how to clone the job - if creating manually each time, follow the above steps but make sure you use the updated values from the tables below.
