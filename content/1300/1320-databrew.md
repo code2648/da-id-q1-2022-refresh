@@ -38,7 +38,8 @@ In this lab you will be completing the following tasks.
 7. In the **Sampling** section, leave the default configuration values
    ![](/static/1300/images/6.png)
 
-8. In the **Permissions** section, select the role `databrew-lab-DataBrewLabRole-xxxxx` from the drop-down list  
+8. In the **Permissions** section, select the role name like `databrew-lab-DataBrewLabRole-xxxxx` from the drop-down list. This is the same as specified by the *Value* of the *Key* **DataBrewOutputS3Bucket** in the CloudFormation *Outputs* tab.
+
    ![](/static/1300/images/7.png)
 
 9. Click **Create project**   
@@ -76,11 +77,11 @@ In this lab you will be completing the following tasks.
 
     ![](/static/1300/images/12.png)
 
-    In the **Job output settings** section, select the S3 bucket with the name `databrew-lab-databrewoutputs3bucket-xxxxx` and a folder name (eg. data-profile)
+    In the **Job output settings** section, select the S3 bucket as specified by the *Value* of the *Key* **DataBrewOutputS3Bucket** in the CloudFormation *Outputs* tab. It should be with the name like `databrew-lab-databrewoutputs3bucket-xxxxx` and also specify a prefix name for example `data-profile`.
 
     ![](/static/1300/images/13.png)
 
-    In the **Permissions** section, select the IAM role with the name `databrew-lab-DataBrewLabRole-xxxxx`
+    In the **Permissions** section, select the IAM role with the name like `databrew-lab-DataBrewLabRole-xxxxx` or as specified by the *Value* of the *Key* **DataBrewOutputS3Bucket** in the CloudFormation *Outputs* tab.
 
     Leave all other settings as the default values
 
@@ -164,13 +165,16 @@ In this section, we will apply the following transformations to the dataset.
 
 5. Next, split the `date_copy_2` column into month and day.
 
+    Same way as you did above in *(4)*.  In the **Split column** dialog, enter `4` for **Position from the beginning** to split out the month, and day. Leave all other default settings.
+
+
     The result should look like the screenshot below.
 
     ![](/static/1300/images/24.png)
 
 6. Let's rename the new columns to `year`, `month`, `day`
 
-    Click on the `date_copy_1` column and select **Rename** from the menu. Enter `year` as the new column name, and click **Apply**
+    Click on **Rename** from the `...` at the top right of the `date_copy_1` column. Enter `year` as the new column name, and click **Apply**
 
     ![](/static/1300/images/25.png)
 
@@ -186,7 +190,7 @@ In this section, we will apply the following transformations to the dataset.
 
     ![](/static/1300/images/42.png)
     
-    Click on the `probableCases` column and select **Remove or fill missing values** / **Fill with custom value**
+    Click on the `...` from the top right of `probableCases` column and select **Remove or fill missing values** --> **Fill with custom value**
 
     ![](/static/1300/images/26.png)
 
@@ -200,13 +204,13 @@ In this section, we will apply the following transformations to the dataset.
 
     ![](/static/1300/images/43.png)
     
-    Click on the `dataQualityGrade` column and select **Categorical mapping**
+    Click on the `...` from the top right of `dataQualityGrade` column and select **Categorical mapping**
 
     ![](/static/1300/images/28.png)
     
     In the **Categorically map column** dialog
     - Select the option **Map all values**
-    - Enable **Map values to numeric values**
+    - Select **Map values to numeric values**
     - Map the current `dataQualityGrade` value to the new value as follows
     
       |dataQualityGrade|New value|
@@ -222,7 +226,7 @@ In this section, we will apply the following transformations to the dataset.
 
     Leave all other settings as default. Click **Apply**
 
-    After this transform, the new column `dataQualityGrade_mapped` is of type double, convert this column to integer.
+    After this transform, the new column `dataQualityGrade_mapped` is of type double, convert this column to integer. By clicking on the **#** on top left of the new column `dataQualityGrade_mapped`.
 
 9. You are now ready to publish the recipe so that it can be used in DataBrew jobs. The final recipe looks like the following.
 
@@ -248,19 +252,28 @@ In this section, we will apply the following transformations to the dataset.
 
     Select the `covid-states-daily` dataset
 
-    Select the 'covid-states-daily-recipe'
+    Select the 'covid-states-daily-recipe'.
 
     ![](/static/1300/images/33.png)
 
-    In the **Job output settings** section, enter the S3 location `s3://databrew-lab-databrewoutputs3bucket-xxxxx/job-outputs/`. 
-
-    Expand the **Additional Configuration - optional** panel.
+    In the **Job output settings** section set
     
-    Under **Custom partition by column values** add `year`, `month` and `day` columns. This will partition the data in the output folder by year, month and day. 
+    * **Output to** Amazon S3.
+    * **File type** to *CSV*.
+    * **Delimiter** to *Comma(,)*.
+    * **Compression** to *None*.
+    * **S3 bucket owners's Account** to *Current AWS account*.
+    * **S3 location** as specified by the *Value* of the *Key* **DataBrewOutputS3Bucket** in the CloudFormation *Outputs* tab. It should be with the name like `databrew-lab-databrewoutputs3bucket-xxxxx` and also specify a prefix name for example `job-outputs`. The **S3 location** should look something like `s3://databrew-lab-databrewoutputs3bucket-xxxxx/job-outputs/`. 
+
+    ![](/static/1300/images/44.png)
+
+    Click on **Settings** on the right to
+    * Select **Create a new folder for each job run**.
+    * Under **Custom partition by column values** add `year`, `month` and `day` columns. This will partition the data in the output folder by year, month and day. And click on **Save**.
 
     ![](/static/1300/images/34.png)
 
-    In the **Permissions** section, select the role `databrew-lab-DataBrewLabRole-xxxxx`
+   In the **Permissions** section, select the IAM role with the name like `databrew-lab-DataBrewLabRole-xxxxx` or as specified by the *Value* of the *Key* **DataBrewOutputS3Bucket** in the CloudFormation *Outputs* tab.
 
     ![](/static/1300/images/35.png)
 
@@ -278,9 +291,11 @@ In this section, we will apply the following transformations to the dataset.
 
 ### Viewing data lineage
 
-1. In DataBrew, navigate back to the `covid-states-daily` project
+1. In DataBrew, navigate back to the `covid-states-daily` project.
     
-    Click on **Lineage** at the top right
+    Click on **Lineage** at the top right.
+
+    ![](/static/1300/images/45.png)
 
     This view shows the origin of the data and the transformation steps that the data has been through.
 
