@@ -144,10 +144,10 @@ Glue will create the new folder automatically, based on your input of the full f
 1. In the left navigation pane, under ETL, click **AWS Glue Studio**.
     ![](/static/600/media/image26.png)
 
-2. Choose “**View Jobs**”
+2. Choose “**View jobs**”
     ![](/static/600/media/image27.png)
 
-3. Leave the “Source and target added to the graph” option selected, and press “**Create**”
+3. Leave the “Visual with a source and target” option selected, and click “**Create**”
     ![](/static/600/media/image28.png)
 
 4. Select the **Data source - S3 bucket** at the top of the graph.
@@ -187,15 +187,11 @@ Glue will create the new folder automatically, based on your input of the full f
 18. Scroll down to the **Job runs** list to verify that the ETL job has completed successfully. This should take about 1 minute to complete.
     ![](/static/600/media/image35.png)
 
-::alert[If the Glue job has failed with an S3 AccessDenied exception such as in the sample screenshot below, check that the job's S3 Target Location is referring to the xxx-dmslabs3bucket-xxx S3 bucket in your AWS lab account. If the S3 Target Location is not showing the correct S3 bucket, update this with the correct S3 bucket, save and re-run the job.]{type="info"}
-
-![](/static/600/media/image85.png)
-
 19. We need to repeat this process for an additional 4 jobs, to transform the **sport_location, sporting_event, sporting_event_ticket** and **person** tables.
 
 During this process, we will need to modify different column data types. We can either repeat the process above for each table, or we can clone the first job and update the details. The steps below describe how to clone the job - if creating manually each time, follow the above steps but make sure you use the updated values from the tables below.
 
-1. Return to the **Jobs** menu, and select the **Glue-Lab-SportsTeamParquet** job by clicking the small circle next to the name.
+1. Return to the **Jobs** menu, and select the **Glue-Lab-SportsTeamParquet** job by clicking the checkbox next to the name.
     ![](/static/600/media/image36.png)
 
 2. Under the **Actions** dropdown, select **Clone job**. Update the job as per the following tables, then **Save** and **Run**.
@@ -279,7 +275,7 @@ Create a **Glue-Lab-PersonParquet** job with the following attributes:
 
 ##### Create Glue Crawler for Parquet Files 
 
-1. In the Glue Studio naviation menu, select **Crawlers** to open the Glue Crawlers page in a new tab. Click **Add crawler**.
+1. In the Glue Studio navigation menu, select **Crawlers** to open the Glue Crawlers page in a new tab. Click **Add crawler**.
     ![](/static/600/media/image37.png)
 
 2. For **Crawler name**, type `glue-lab-parquet-crawler` and Click **Next**.

@@ -29,7 +29,6 @@ On-demand trigger → glue-lab-cdc-crawler → Glue-Lab-TicketHistory-Parquet-wi
 2.  Give the workflow name as `Workflow_tickethistory`. Provide a description (optional) and click on **Add Workflow** to create it.
 3.  Click on the **workflow** and scroll to the bottom of the page. You will see an option **Add Trigger**. Click on that button.
     ![](/static/600/media/image79.png)
-    ![](/static/600/media/image80.png)
 4.  In **Add Trigger** window, From Clone Existing and Add New options, click on **Add New**.
     - Provide **Name** as `Trigger1`
     - Provide a **description**: `Trigger to start workflow`

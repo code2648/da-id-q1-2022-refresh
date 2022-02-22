@@ -6,7 +6,7 @@ weight: 330
 ## Streaming ETL Lab
 ![](/static/300/images-streamingETL/1.png)
 
-### Set up Environment:
+### Set up environment
 ::alert[You need to set this environment only if you are running this workshop on your own account. If you are on an AWS event this has already been done for you.]{type="warning"}
 
 Use the [DMS Lab Student PreLab CloudFormation](/400/420-pre-lab-2.html) to setup your core workshop infrastructure environment. Skip the same PreLab in the DMS section.
@@ -17,64 +17,89 @@ Click the **Deploy to AWS** icon below:
 :button[Deploy to AWS]{iconName="external" variant="primary" href="https://console.aws.amazon.com/cloudformation/home#/stacks/create/review?stackName=dmslab-student&templateURL=https://s3.amazonaws.com/aws-dataengineering-day.workshop.aws/DMSlab_student_CFN.yaml" target="_blank"}
 
 ### Set up the kinesis stream 
-1.	Navigate to [AWS Kinesis console](https://console.aws.amazon.com/kinesis/home) 
+1. Navigate to [AWS Kinesis console](https://console.aws.amazon.com/kinesis/home) 
 
-2.	Click “Create data stream” 
+2. Click “Create data stream” 
 ![](/static/300/images-streamingETL/2.png)
  
-3.	Put `TicketTransactionStreamingData` as data stream name and put number of open shards as `2`, then click “Create data stream”.
-![](/static/300/images-streamingETL/3.png)
+3. Enter the following details
 
-Lab Instructions
+- **Data stream name:** `TicketTransactionStreamingData`
+- **Capacity mode:** `Provisioned`
+- **Provisioned shards:** `2`
 
-Create Table for Kinesis Stream Source in Glue Data Catalog
-1.	Navigate to [AWS Glue console](https://console.aws.amazon.com/glue/home)  
-2.	On the AWS Glue menu, select Tables
+  ![](/static/300/images-streamingETL/3.png)
+
+4. Click **Create data stream**
+
+
+### Lab Instructions
+
+#### Create Table for Kinesis Stream Source in Glue Data Catalog
+1. Navigate to [AWS Glue console](https://console.aws.amazon.com/glue/home)  
+2. On the AWS Glue menu, select Tables, then select **Add table manually** from the drop down list.
  ![](/static/300/images-streamingETL/4.png)
-3.	Enter `TicketTransactionStreamData` as the table name
-4.	Click Add database and enter `tickettransactiondatabase` as the database name, and click create. 
- ![](/static/300/images-streamingETL/5.png)
-5.	Using drop down to select the database we just created, and click Next
- ![](/static/300/images-streamingETL/6.png)
-6.	Select **Kinesis** as the source, select Stream in my account for Select a kinesis data stream, select the appropriate AWS region where you have created the stream, select the stream name as `TicketTransactionStreamingData` from the dropdown, and click Next.
- ![](/static/300/images-streamingETL/7.png)
-7.	Choose JSON as the incoming data format, as we will trigger JSON payload from Kinesis Data Generator in following steps. Click Next.
- ![](/static/300/images-streamingETL/8.png)
-8.	Leave the schema as empty, as we will enable schema detection feature when defining glue stream job. Click Next.
- ![](/static/300/images-streamingETL/9.png)
+3. Enter `TicketTransactionStreamData` as the table name
 
-9.	Review all the details and click Finish.
+4. Click Add database and enter `tickettransactiondatabase` as the database name, and click create. 
+ ![](/static/300/images-streamingETL/5.png)
+5. Using drop down to select the database we just created, and click Next
+ ![](/static/300/images-streamingETL/6.png)
+6. Select **Kinesis** as the source, select Stream in my account for Select a kinesis data stream, select the appropriate AWS region where you have created the stream, select the stream name as `TicketTransactionStreamingData` from the dropdown, and click Next.
+ ![](/static/300/images-streamingETL/7.png)
+7. Choose JSON as the incoming data format, as we will trigger JSON payload from Kinesis Data Generator in following steps. Click Next.
+ ![](/static/300/images-streamingETL/8.png)
+8. Leave the schema as empty, as we will enable schema detection feature when defining glue stream job. Click Next.
+ ![](/static/300/images-streamingETL/9.png)
+9. Leave partition indices empty. Click Next.
+ ![](/static/300/images-streamingETL/45.png)
+10. Review all the details and click Finish.
  ![](/static/300/images-streamingETL/10.png)
 
+### Create and trigger Glue Streaming job
 
-### Create and trigger Glue Stream job 
+1. On the left-hand side of Glue Console, click on **Jobs**, this will launch Glue Studio.
+   ![](/static/300/images-streamingETL/46.png)
 
-1.	Navigate to [AWS Glue console](https://console.aws.amazon.com/glue/home) 
-2.	On the AWS Glue menu, select Jobs and then click Add job
- ![](/static/300/images-streamingETL/11.png)
-3.	Enter `TicketTransactionStreamingJob` as the job name, select the IAM role with “GlueLabRole” in the name.
-For job type, use dropdown list, select Spark Streaming; 
- ![](/static/300/images-streamingETL/12.png)
+2. Select the **Visual with a blank canvas** option. Click **Create**
+   ![](/static/300/images-streamingETL/47.png)
 
-leave the rest configurations as-is and click Next.
- ![](/static/300/images-streamingETL/13.png)
-4.	For Data source, select the data source named tickettransactionstreamdata we just created. Click Next.
- ![](/static/300/images-streamingETL/14.png)
-5.	For Data target, select Create tables in your data target, for Data store, using dropdown list and select Amazon S3, for Format, using dropdown list and select Parquet.
- ![](/static/300/images-streamingETL/15.png)
-Click the button next to Target path to select the S3 bucket. From the pop up window, select the S3 bucket with dmslabs3bucket in the name.
- ![](/static/300/images-streamingETL/16.png)
-Make sure you add a path at the end `/TicketTransactionStreamData` 
- ![](/static/300/images-streamingETL/17.png)
-6.	Make sure you select Automatically detect schema of each record, then click Save job and edit script.
- ![](/static/300/images-streamingETL/18.png)
-7.	Review the generated script, click Save and then quit the editor.
- ![](/static/300/images-streamingETL/19.png)
-8.	Select the TicketTransactionStreamingJob we just created, from the Action dropdown list, select Run job.
- ![](/static/300/images-streamingETL/20.png)
+3. Select **Amazon Kinesis** from the Source drop down list.
+   ![](/static/300/images-streamingETL/48.png)
 
-Just leave the optional parameters as default and click Run job to trigger the Glue Stream Job
- ![](/static/300/images-streamingETL/21.png)
+4. In the panel on the right under “Data source properties - Kinesis Stream”, configure as follows:
+
+- **Amazon Kinesis Source:** `Data Catalog table`
+- **Database:** `tickettransactiondatabase`
+- **Table:** `tickettransactionstreamdata`
+- Make sure that **Detect schema** is selected
+- Leave all other fields as default
+
+  ![](/static/300/images-streamingETL/49.png)
+
+5. Select **Amazon S3** from the Target drop down list.
+   ![](/static/300/images-streamingETL/50.png)
+
+6. Select the **Data target - S3 bucket** node at the bottom of the graph, and configure as follows:
+
+   - **Format:** `Parquet`
+   - **Compression Type:** `None`
+   - **S3 Target Location:** Select **Browse S3** and select the “mod-xxx-dmslabs3bucket-xxx” bucket
+   
+   Append `TicketTransactionStreamingData/` to the S3 URL. The path should look similar to s3://mod-xxx-dmslabs3bucket-xxx/<strong>TicketTransactionStreamingData/</strong> - don’t forget the **/** at the end. The job will automatically create the folder.
+    ![](/static/300/images-streamingETL/51.png)
+
+7. Finally, select the **Job details** tab at the top and configure as follows:
+
+   - **Name:** `TicketTransactionStreamingJob`
+   - **IAM Role:** Select the `xxx-GlueLabRole-xxx` from the drop down list
+   - **Type:** `Spark Streaming`
+
+    ![](/static/300/images-streamingETL/52.png)
+
+8. Press the **Save** button in the top right-hand corner to create the job.
+
+9. Once you see the **Successfully created job** message in the banner, click the **Run** button to start the job.
 
 ### Trigger stream data from KDG 
 
@@ -127,8 +152,6 @@ https://awslabs.github.io/amazon-kinesis-data-generator/web/help.html
  ![](/static/300/images-streamingETL/29.png)
 Click the icon next to Include path input to select the S3 bucket. Make sure you select the folder TicketTransactionStreamingData. Click Select.
  ![](/static/300/images-streamingETL/30.png)
-Expand the Exclude patterns, enter `checkpoint/**` to exclude the data in checkpoint folder. Review the current input and click Next.
- ![](/static/300/images-streamingETL/31.png)
 6.	Select No to indicate no other data store needed, then click Next.
  ![](/static/300/images-streamingETL/32.png)
 7.	Choose an existing IAM role, using the dropdown list to select the role with GlueLabRole in the name, click Next.
@@ -151,7 +174,6 @@ Expand the Exclude patterns, enter `checkpoint/**` to exclude the data in checkp
 
 2.	Make sure you select the appropriate region, from the dropdown list, select the TicketTransactionStreamingData as the target Kinesis stream, put Records per second as 1; click Template 2, and prepare to copy abnormal transaction data,
  ![](/static/300/images-streamingETL/40.png)
-
 
 3.	For the record template, type in `AbnormalTransaction` as the payload name, and copy the template payload as below,
 
@@ -180,34 +202,32 @@ Click Send data to simulate abnormal transactions (1 transaction per second all 
 ### Detect Abnormal Transactions using Ad-Hoc query from Athena
 1.	Navigate to [AWS Athena console](https://console.aws.amazon.com/athena/home)
 
-::::expand{header="If it’s the first time you are using Athena in your AWS Account, expand to follow the instructions"}
-Click **Get Started**  
+If it’s the first time you are using Athena in your AWS Account, expand **Get Started using Athena...** below.
 
-![Athena Console](/static/300/images-streamingETL/image73.png)
+::::expand{header="Get Started using Athena"}
+Click **View settings** to set up a query result location in Amazon S3.
 
-Then click **set up a query result location in Amazon S3** at the top
+![](/static/300/images-streamingETL/image91.png)
 
-![set s3 location](/static/300/images-streamingETL/image74.png)
+Then click **Manage**
 
-In the pop-up window in the **Query result location** field, click the **Select** icon. Choose the bucket with the string     **dmslabs3bucket** ( e.g: *dmslab-student-dmslabs3bucket-xg1hdyq60ibs*), then click on **Select** button.
+![](/static/300/images-streamingETL/image92.png)
 
-![Athena settings](/static/300/images-streamingETL/v-image10.png)
+In the pop-up window in the **Location of query result** field, click **Browse**. Choose the bucket with the string  **dmslabs3bucket** (e.g: *mod-3fccddd609114925-dmslabs3bucket-1wrxdypwl36xo*), then click **Save**.
 
-Append `athenaquery/` at the end of the S3 location, don't forgot the **/** at the end. Click on **Save**.
+Append `athenaquery/` at the end of the S3 location, don't forget the **/** at the end. Click on **Save**.
 
-![Athena Bucket Settings](/static/300/images-streamingETL/v-image11.png)
+![](/static/300/images-streamingETL/image93.png)
 ::::
-
-
 
 2.	Make sure you select AwsDataCatalog as Data source and tickettransactiondatabase as the database, refresh to make sure the parquet_tickettransactionstreamingdata is showing in the table list.
 ![](/static/300/images-streamingETL/42.png)
  
-3.	Copy query as below, this is to query last hour the number of transactions by sourceip. You should see there’s large amount of transactions from the same sourceip. (if this is the first time you launch Athena, you might need to go to Athena Settings and set Query result location, please set the path to s3 bucket with "dmslab-student-dmslabs3bucket" in the name and under "athenaquery" folder)
+3.	Copy query as below, this is to query last hour the number of transactions by sourceip. You should see there’s large amount of transactions from the same sourceip.
     :::code{language=sql showLineNumbers=false showCopyAction=true}
     SELECT count(*) as numberOfTransactions, sourceip
     FROM "tickettransactiondatabase"."parquet_tickettransactionstreamingdata" 
-    WHERE ingest_year='2021'
+    WHERE ingest_year='2022'
     AND cast(ingest_year as bigint)=year(now())
     AND cast(ingest_month as bigint)=month(now())
     AND cast(ingest_day as bigint)=day_of_month(now())
@@ -217,11 +237,11 @@ Append `athenaquery/` at the end of the S3 location, don't forgot the **/** at t
     :::
     ![](/static/300/images-streamingETL/43.png)
  
-4.	Copy query as below, this is to further check if the transaction details from the same source IP.  The query verified that the request are coming from same ip but with different customer id, so it’s verified as abnormal transactions.
+4.	Copy query as below, this is to further check if the transaction details from the same source IP. The query verified that the request are coming from same ip but with different customer id, so it’s verified as abnormal transactions.
     :::code{language=sql showLineNumbers=false showCopyAction=true}
     SELECT *
     FROM "tickettransactiondatabase"."parquet_tickettransactionstreamingdata" 
-    WHERE ingest_year='2021'
+    WHERE ingest_year='2022'
     AND cast(ingest_year as bigint)=year(now())
     AND cast(ingest_month as bigint)=month(now())
     AND cast(ingest_day as bigint)=day_of_month(now())
